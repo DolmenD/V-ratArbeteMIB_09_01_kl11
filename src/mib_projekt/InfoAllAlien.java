@@ -20,7 +20,6 @@ import oru.inf.InfException;
  */
 public class InfoAllAlien extends javax.swing.JFrame {
     private InfDB idb;
-    private int valtAlienID;
     private String Tidigare;
     /**
      * Creates new form InfoAllAlien
@@ -135,25 +134,21 @@ public class InfoAllAlien extends javax.swing.JFrame {
 
     private void fyllAlienNamn(){
         try {
-            // SQL-fråga för att hämta Plats_ID och Benamning från plats-tabellen
             String fraga = "SELECT Alien_ID, Namn FROM alien;";
-            // Utför SQL-frågan och få resultatet
+            //Vi använder oss av var variabeln som automatiskt känner av vilken datatyp det är
             var resultat = idb.fetchRows(fraga);
 
             // Iterera över varje rad i resultatet
             for (HashMap<String, String> rad : resultat) {
-                // Hämta Plats_ID och Benamning från raden
+                //Hämtar ut namn och id där namnet sedan läggs till i cb
                 String AlienIdStr = rad.get("Alien_ID");
                 String AlienNamn = rad.get("Namn");
 
-                // Kontrollera om Plats_ID är inte null
                 if (AlienIdStr != null) {
-                    // Lägg till Benamning i dropdown-menyn
                     cbtnAlienNamn.addItem(AlienNamn);
                 }
             }
         } catch (InfException ex) {
-            // Visa felmeddelande om något går fel med databasen
             JOptionPane.showMessageDialog(null, "Något gick fel!");
             System.out.println("Internt felmeddelande" + ex.getMessage());
         }
@@ -167,7 +162,6 @@ public class InfoAllAlien extends javax.swing.JFrame {
         try {
             // SQL-fråga för att hämta Alien_ID baserat på namnet
             String fraga = "SELECT Alien_ID FROM Alien WHERE Namn = '" + valtAlienNamn + "'";
-            // Utför SQL-frågan och få resultatet
             var resultat = idb.fetchSingle(fraga);
 
                 String Fraga = "SELECT Alien_ID, Registreringsdatum, Epost, Losenord, Namn , Telefon, Plats, Ansvarig_Agent FROM alien WHERE Alien_ID = " + resultat + "";
@@ -175,7 +169,7 @@ public class InfoAllAlien extends javax.swing.JFrame {
                 ArrayList<HashMap<String, String>> alienInfoLista;
                 alienInfoLista = idb.fetchRows(Fraga);
                 System.out.println("valtAlienNamn: " + valtAlienNamn);
-                
+                //Skriver ut all info om alien
                 DefaultListModel<String> alientLista = new DefaultListModel<>();
                 for (HashMap<String, String> enAlien : alienInfoLista) {
                     alientLista.addElement("Alien_ID: " + enAlien.get("Alien_ID"));

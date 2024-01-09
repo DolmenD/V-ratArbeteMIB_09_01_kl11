@@ -6,7 +6,6 @@ package mib_projekt;
 
 import java.util.HashMap;
 import javax.swing.JOptionPane;
-import oru.inf.InfException;
 import oru.inf.InfDB;
 import oru.inf.InfException;
 
@@ -39,27 +38,24 @@ public class NamnAllaAgenter extends javax.swing.JFrame {
 
      private void fyllCbtnAgentNamn() {
         try {
-            // SQL-fråga för att hämta Plats_ID och Benamning från plats-tabellen
+            // SQL-fråga för att hämta Plats_ID och Namn från agent tabellen
             String fraga = "SELECT Agent_ID, Namn FROM Agent;";
-            // Utför SQL-frågan och få resultatet
             var resultat = idb.fetchRows(fraga);
 
-            // Iterera över varje rad i resultatet
+            // Itererar över varje rad i resultatet
             for (HashMap<String, String> rad : resultat) {
-                // Hämta Plats_ID och Benamning från raden
+                // Hämtar Plats_ID och namn från raden
                 String AlienIdStr = rad.get("Agent_ID");
                 String AlienNamn = rad.get("Namn");
 
-                // Kontrollera om Plats_ID är inte null
+                // Kontrollerar så att alienid inte är null
                 if (AlienIdStr != null) {
-                    // Konvertera Plats_ID till integer
                     int AlienID = Integer.parseInt(AlienIdStr);
-                    // Lägg till Benamning i dropdown-menyn
                     cbtnAgentNamn.addItem(AlienNamn);
                 }
             }
         } catch (InfException ex) {
-            // Visa felmeddelande om något går fel med databasen
+            // Visar felmeddelande om något går fel med databasen
             JOptionPane.showMessageDialog(null, "Något gick fel!");
             System.out.println("Internt felmeddelande" + ex.getMessage());
         }
@@ -140,22 +136,18 @@ public class NamnAllaAgenter extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cbtnAgentNamnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbtnAgentNamnActionPerformed
-        // TODO add your handling code here:
+        // hämtar agent_ID med hjälp av namnet från den valda agenten i cb
         String valtAgentNamn = (String) cbtnAgentNamn.getSelectedItem();
 
         try {
-            // SQL-fråga för att hämta Alien_ID baserat på namnet
             String fraga = "SELECT Agent_ID FROM Agent WHERE Namn = '" + valtAgentNamn + "'";
-            // Utför SQL-frågan och få resultatet
             var resultat = idb.fetchSingle(fraga);
 
-            // Kontrollera om resultatet inte är null
+            // Kontrollerar sså att resultatet inte är null
             if (resultat != null) {
-                // Konvertera resultatet till integer och lagra det i valtAlienID
                 valtAgentID = Integer.parseInt(resultat);
             }
         } catch (InfException ex) {
-            // Visa felmeddelande om något går fel med databasen
             JOptionPane.showMessageDialog(null, "Något gick fel!");
             System.out.println("Internt felmeddelande" + ex.getMessage());
         }

@@ -135,10 +135,9 @@ public class InLoggningAgent extends javax.swing.JFrame {
                 char[] losenorChar = lsnLosenordAgent.getPassword();
                 String losenord = new String(losenorChar);
 
-                // Formatera strängarna korrekt i SQL-frågan
+                //Kollar om epost och lösen finns i databasen
                 String fraga = "SELECT EPOST, LOSENORD FROM AGENT WHERE EPOST = '" + epost + "' AND LOSENORD = '" + losenord + "'";
 
-                // Utför frågan och hämta resultatet
                 String svar = idb.fetchSingle(fraga);
                 // Kontrollera om resultatet är tomt eller null
                 if (svar != null && !svar.isEmpty()) {

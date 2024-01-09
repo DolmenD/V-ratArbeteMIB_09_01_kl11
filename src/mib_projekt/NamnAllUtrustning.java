@@ -134,50 +134,44 @@ public class NamnAllUtrustning extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         
          try {
-        // Hämta det valda utrustningsnamnet från ComboBoxen
+        // Hämta det valda utrustningsnamnet från cb
         String valtUtrustningNamn = (String) cbtnUtrustning.getSelectedItem();
 
-        // Kontrollera om något är valt
         if (valtUtrustningNamn != null && !valtUtrustningNamn.isEmpty()) {
-            // Hämta Utrustning_ID för det valda utrustningsnamnet
+            // Hämta Utrustning_ID för den valda utrustningen
             String fragaUtrustningID = "SELECT Utrustnings_ID FROM Utrustning WHERE Benamning = '" + valtUtrustningNamn + "';";
             String utrustningID = idb.fetchSingle(fragaUtrustningID);
 
-            // Kontrollera om Utrustning_ID är inte null
+            // Kontrollera om UtrustningID inte är null eller tom
             if (utrustningID != null && !utrustningID.isEmpty()) {
-                // Använd Utrustning_ID för att ta bort kopplingar i relaterade tabeller
 
-                // 1. Ta bort kopplingar i Vapen-tabellen
+                // Ta bort kopplingar i Vapen-tabellen
                 String fragaVapen = "DELETE FROM Vapen WHERE Utrustnings_ID = " + utrustningID + ";";
                 idb.delete(fragaVapen);
 
-                // 2. Ta bort kopplingar i Teknik-tabellen
+                // Ta bort kopplingar i Teknik-tabellen
                 String fragaTeknik = "DELETE FROM Teknik WHERE Utrustnings_ID = " + utrustningID + ";";
                 idb.delete(fragaTeknik);
 
-                // 3. Ta bort kopplingar i Kommunikation-tabellen
+                //Ta bort kopplingar i Kommunikation-tabellen
                 String fragaKommunikation = "DELETE FROM Kommunikation WHERE Utrustnings_ID = " + utrustningID + ";";
                 idb.delete(fragaKommunikation);
 
-                // 4. Ta bort kopplingar i Innehar_Utrustning-tabellen
+                //Ta bort kopplingar i Innehar_Utrustning-tabellen
                 String fragaInnehar = "DELETE FROM Innehar_Utrustning WHERE Utrustnings_ID = " + utrustningID + ";";
                 idb.delete(fragaInnehar);
 
-                // Nu kan du radera utrustningen från Utrustning-tabellen
+                //Eftersom alla andra kopplignar för utrustningen nu är borta så kan man ta bort den i utrustningstabellen
                 String fragaRaderaUtrustning = "DELETE FROM Utrustning WHERE Utrustnings_ID = " + utrustningID + ";";
                 idb.delete(fragaRaderaUtrustning);
-
-                // Meddela användaren att utrustningen har raderats
                 JOptionPane.showMessageDialog(null, "Utrustningen har raderats.");
 
-                // Uppdatera ComboBoxen med de återstående utrustningarna
+                // Uppdaterar cb med utrustningen
                 fyllCbtnUtrustningNamn();
             } else {
-                // Meddela användaren att Utrustning_ID inte kunde hämtas
                 JOptionPane.showMessageDialog(null, "Kunde inte hämta Utrustning_ID.");
             }
         } else {
-            // Meddela användaren att ingen utrustning är vald
             JOptionPane.showMessageDialog(null, "Ingen utrustning är vald.");
         }
     } catch (InfException ex) {

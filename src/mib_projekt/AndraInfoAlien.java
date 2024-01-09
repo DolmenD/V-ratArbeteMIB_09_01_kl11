@@ -203,7 +203,7 @@ public class AndraInfoAlien extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    //Fyller på med nuvarande rasen och den rasen alien är kommer först det är därför if satserna är där
     private void setNuvarandeRas() {
         try {
             String fraga1 = "SELECT Alien_ID FROM WORM WHERE ALIEN_ID = '" + AlienID + "'";
@@ -252,7 +252,7 @@ public class AndraInfoAlien extends javax.swing.JFrame {
             System.out.println("Internt felmeddelande" + ex.getMessage());
         }
     }
-
+    //Fyller rutorna med information om alien
     private void setTextFields() {
 
         try {
@@ -276,7 +276,7 @@ public class AndraInfoAlien extends javax.swing.JFrame {
     }
 
     private void btnAndraInfoAlienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAndraInfoAlienActionPerformed
-        // TODO add your handling code here:
+        // Uppdaterar informationen om alien när man klickar på knappen
         if(Inmatningsvalidering.telefonValidering(txtTelefon) && Inmatningsvalidering.textValidering(txtNamn) && Inmatningsvalidering.textValidering(txtNyttLosenord)){
             try {
                 String losenord = txtNyttLosenord.getText();

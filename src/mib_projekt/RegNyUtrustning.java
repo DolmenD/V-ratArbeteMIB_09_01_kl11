@@ -168,7 +168,7 @@ public class RegNyUtrustning extends javax.swing.JFrame {
               String namn = txtNamn.getText();
               String typUtrustning = (String) cbtnUtrustning.getSelectedItem();
               String infoUtrustning = txtUtrustningInfo.getText();
-
+              //sql frågan tar fram ett nytt id som är ett högre än det högsta vi har nu
               String fragaUtrustningID = "SELECT COALESCE(MAX(Utrustnings_ID), 0) + 1 AS NextUtrustningsID FROM Utrustning";
               String utrustningsIDResult = idb.fetchSingle(fragaUtrustningID);
               int utrustningsID = (utrustningsIDResult != null) ? Integer.parseInt(utrustningsIDResult) : 1;
@@ -176,7 +176,7 @@ public class RegNyUtrustning extends javax.swing.JFrame {
               String fragaRegistreraUtrustning = "INSERT INTO Utrustning (Utrustnings_ID, Benamning) VALUES "
                                          + "('" + utrustningsID + "', '" + namn + "')";
               idb.insert(fragaRegistreraUtrustning);
-
+              //Kollar vilken typ av utrustning man vill registrera samt registrerar den i databasen
               if("Vapen".equals(typUtrustning)){
                   int infoVapen = Integer.parseInt(infoUtrustning);
                   String fragaVapen = "INSERT INTO Vapen (Utrustnings_ID, Kaliber) VALUES "

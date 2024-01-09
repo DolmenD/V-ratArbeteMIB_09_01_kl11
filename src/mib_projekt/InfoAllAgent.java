@@ -20,7 +20,6 @@ import oru.inf.InfException;
  */
 public class InfoAllAgent extends javax.swing.JFrame {
     private InfDB idb;
-    private int valtAgentID;
     /**
      * Creates new form InfoAllAlien
      */
@@ -121,20 +120,18 @@ public class InfoAllAgent extends javax.swing.JFrame {
 
     private void fyllAlienNamn(){
         try {
-            // SQL-fråga för att hämta Plats_ID och Benamning från plats-tabellen
+            // SQL-fråga för att hämta agent_id och namn från databasen
             String fraga = "SELECT Agent_ID, Namn FROM agent;";
-            // Utför SQL-frågan och få resultatet
             var resultat = idb.fetchRows(fraga);
 
-            // Iterera över varje rad i resultatet
+            // Loopar igenom varje rad i resultatet
             for (HashMap<String, String> rad : resultat) {
                 // Hämta Plats_ID och Benamning från raden
                 String AgentIdStr = rad.get("Agent_ID");
                 String AgentNamn = rad.get("Namn");
 
-                // Kontrollera om Plats_ID är inte null
                 if (AgentIdStr != null) {
-                    // Lägg till Benamning i dropdown-menyn
+                    // Lägger till agentens namn i cb
                     cbtnAgentNamn.addItem(AgentNamn);
                 }
             }
@@ -151,18 +148,17 @@ public class InfoAllAgent extends javax.swing.JFrame {
         
         
         try {
-            // SQL-fråga för att hämta Alien_ID baserat på namnet
+            // SQL-fråga för att hämta Alien_ID baserat på namnet som man valde i cb
             String fraga = "SELECT Agent_ID FROM Agent WHERE Namn = '" + valtAgentNamn + "'";
-            // Utför SQL-frågan och få resultatet
             var resultat = idb.fetchSingle(fraga);
 
-
+                //sql fråga som hämtar all info om agenten
                 String Fraga = "SELECT Agent_ID, Namn, Telefon, Anstallningsdatum, Administrator , Epost, Losenord, Omrade FROM agent WHERE Agent_ID = " + resultat + "";
 
                 ArrayList<HashMap<String, String>> agentInfoLista;
                 agentInfoLista = idb.fetchRows(Fraga);
                 System.out.println("valtAgentnamn; " + valtAgentNamn);
-                
+                //DefaultListModel använder vi för att visa all info om agenten
                 DefaultListModel<String> agentLista = new DefaultListModel<>();
                 for (HashMap<String, String> enAgent : agentInfoLista) {
                     agentLista.addElement("Agent_ID: " + enAgent.get("Agent_ID"));

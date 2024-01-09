@@ -16,7 +16,6 @@ import oru.inf.InfException;
 public class GeAgentAdminstatus extends javax.swing.JFrame {
 
     private InfDB idb;
-    private int AgentID;
 
     /**
      * Creates new form GeAgentAdminstatus
@@ -24,9 +23,9 @@ public class GeAgentAdminstatus extends javax.swing.JFrame {
     public GeAgentAdminstatus(InfDB idb) {
         initComponents();
         this.idb = idb;
-        this.AgentID = AgentID;
         fyllAgentNamn();
     }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.

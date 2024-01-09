@@ -372,7 +372,7 @@ public class EfterInlogg extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAndraAlienActionPerformed
 
     private void btnListaUtrustningActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListaUtrustningActionPerformed
-
+        //Listar utrustning för den inloggade agenten eller admin
         try {
             String agentIdQuery = "SELECT AGENT_ID FROM AGENT WHERE epost = '" + epost1 + "';";
             String resultatAgentID = idb.fetchSingle(agentIdQuery);

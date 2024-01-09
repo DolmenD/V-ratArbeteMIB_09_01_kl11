@@ -6,7 +6,6 @@ package mib_projekt;
 
 import java.util.HashMap;
 import javax.swing.JOptionPane;
-import oru.inf.InfException;
 import oru.inf.InfDB;
 import oru.inf.InfException;
 
@@ -30,7 +29,6 @@ public class NamnAllaAlien extends javax.swing.JFrame {
             System.out.println("Databasanslutning lyckades");
             fyllCbtnAlienNamn();
         } catch (InfException ettUndantag) {
-            // Visa felmeddelande om det uppstår problem med databasanslutningen
             JOptionPane.showMessageDialog(null, "Något gick fel vid anslutning till databasen!");
             System.out.println("Internt felmeddelande: " + ettUndantag.getMessage());
         }
@@ -43,7 +41,6 @@ public class NamnAllaAlien extends javax.swing.JFrame {
             fyllCbtnAlienNamn();
             this.Tidigare = Tidigare;
         } catch (InfException ettUndantag) {
-            // Visa felmeddelande om det uppstår problem med databasanslutningen
             JOptionPane.showMessageDialog(null, "Något gick fel vid anslutning till databasen!");
             System.out.println("Internt felmeddelande: " + ettUndantag.getMessage());
         }
@@ -129,27 +126,25 @@ public class NamnAllaAlien extends javax.swing.JFrame {
 
     private void fyllCbtnAlienNamn() {
         try {
-            // SQL-fråga för att hämta Plats_ID och Benamning från plats-tabellen
+            //fyller cb med alien namn
             String fraga = "SELECT Alien_ID, Namn FROM Alien;";
-            // Utför SQL-frågan och få resultatet
             var resultat = idb.fetchRows(fraga);
 
-            // Iterera över varje rad i resultatet
+            // Itererar över varje rad i resultatet
             for (HashMap<String, String> rad : resultat) {
-                // Hämta Plats_ID och Benamning från raden
+                // Hämta alien_ID och namn från raden
                 String AlienIdStr = rad.get("Alien_ID");
                 String AlienNamn = rad.get("Namn");
 
-                // Kontrollera om Plats_ID är inte null
                 if (AlienIdStr != null) {
-                    // Konvertera Plats_ID till integer
+                    // Konverterar Plats_ID till integer som är en String från början
                     int AlienID = Integer.parseInt(AlienIdStr);
-                    // Lägg till Benamning i dropdown-menyn
+                    // Lägg till namnen i cb
                     cbtnAlienNamn.addItem(AlienNamn);
                 }
             }
         } catch (InfException ex) {
-            // Visa felmeddelande om något går fel med databasen
+            // Visar felmeddelande om något går fel med databasen
             JOptionPane.showMessageDialog(null, "Något gick fel!");
             System.out.println("Internt felmeddelande" + ex.getMessage());
         }
@@ -160,18 +155,15 @@ public class NamnAllaAlien extends javax.swing.JFrame {
         String valtAlienNamn = (String) cbtnAlienNamn.getSelectedItem();
 
         try {
-            // SQL-fråga för att hämta Alien_ID baserat på namnet
+            //sql fråga för att hämta Alien_ID baserat på namnet
             String fraga = "SELECT Alien_ID FROM Alien WHERE Namn = '" + valtAlienNamn + "'";
-            // Utför SQL-frågan och få resultatet
             var resultat = idb.fetchSingle(fraga);
 
-            // Kontrollera om resultatet inte är null
             if (resultat != null) {
-                // Konvertera resultatet till integer och lagra det i valtAlienID
+                //Konverterar till int
                 valtAlienID = Integer.parseInt(resultat);
             }
         } catch (InfException ex) {
-            // Visa felmeddelande om något går fel med databasen
             JOptionPane.showMessageDialog(null, "Något gick fel!");
             System.out.println("Internt felmeddelande" + ex.getMessage());
         }
