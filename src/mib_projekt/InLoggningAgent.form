@@ -104,6 +104,9 @@
       </Events>
     </Component>
     <Component class="javax.swing.JPasswordField" name="lsnLosenordAgent">
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="lsnLosenordAgentActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="lbEpost1">
       <Properties>

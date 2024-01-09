@@ -124,10 +124,12 @@ public class InLoggningAdmin extends javax.swing.JFrame {
 
     private void btnLoggaInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoggaInActionPerformed
 
-        
+            if(Inmatningsvalidering.emailValidering(txtEpost) && Inmatningsvalidering.textValidering(lsnLosenord)){
             try {
                 String epost = txtEpost.getText();
-                String losenord = lsnLosenord.getSelectedText();
+                //Hämtar ut lösenordet
+                char[] losenorChar = lsnLosenord.getPassword();
+                String losenord = new String(losenorChar);
 
                 // Formatera strängarna korrekt i SQL-frågan
                 String fraga = "SELECT EPOST, LOSENORD FROM AGENT WHERE EPOST = '" + epost + "' AND LOSENORD = '" + losenord + "'";
@@ -135,9 +137,9 @@ public class InLoggningAdmin extends javax.swing.JFrame {
                 // Utför frågan och hämta resultatet
                 String svar = idb.fetchSingle(fraga);
                 // Kontrollera om resultatet är tomt eller null
-                if (Inmatningsvalidering.emailValidering(txtEpost) && Inmatningsvalidering.textValidering(lsnLosenord)) {
+                if (svar != null && !svar.isEmpty()) {
                     // Uppdatera användargränssnittet eller gör något med resultatet
-                    EfterInloggAdmin nytt = new EfterInloggAdmin(lsnLosenord.getSelectedText());
+                    EfterInloggAdmin nytt = new EfterInloggAdmin(epost);
                     InLoggningAdmin.this.setVisible(false);
                     nytt.setVisible(true);
                 } else {
@@ -150,7 +152,7 @@ public class InLoggningAdmin extends javax.swing.JFrame {
                 System.out.println("Internt felmeddelande" + e.getMessage());
             }
         
-
+    }
     }//GEN-LAST:event_btnLoggaInActionPerformed
 
     private void btnTillbaka2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTillbaka2ActionPerformed

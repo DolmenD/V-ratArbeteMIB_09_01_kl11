@@ -137,15 +137,13 @@ public class InLoggningAlien extends javax.swing.JFrame {
 
     private void loggaInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loggaInActionPerformed
         //klicka på knapp
-    if (txtEpost.getText().isEmpty() || lsnLosenordAlien.getSelectedText().isEmpty()) {
-    // Om någon av textrutorna är tom, visa felmeddelande
-    JOptionPane.showMessageDialog(null, "Fyll i båda fälten!");
-    txtEpost.requestFocus();
-    lsnLosenordAlien.requestFocus();
-    } else {
+    if (Inmatningsvalidering.emailValidering(txtEpost) && Inmatningsvalidering.textValidering(lsnLosenordAlien)) {
+    
     try {
         String epost = txtEpost.getText();
-        String losenord = lsnLosenordAlien.getSelectedText();
+        //Hämtar ut lösenordet
+        char[] losenorChar = lsnLosenordAlien.getPassword();
+        String losenord = new String(losenorChar);
         
         // Formatera strängarna korrekt i SQL-frågan
         String fraga = "SELECT EPOST, LOSENORD FROM ALIEN WHERE EPOST = '" + epost + "' AND LOSENORD = '" + losenord + "'";

@@ -68,6 +68,12 @@ public class InLoggningAgent extends javax.swing.JFrame {
             }
         });
 
+        lsnLosenordAgent.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                lsnLosenordAgentActionPerformed(evt);
+            }
+        });
+
         lbEpost1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         lbEpost1.setText("Logga in som Agent");
 
@@ -120,15 +126,14 @@ public class InLoggningAgent extends javax.swing.JFrame {
 
     private void btnLoggaInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoggaInActionPerformed
 
-        if (txtEpost.getText().isEmpty() || lsnLosenordAgent.getSelectedText().isEmpty()) {
-            // Om någon av textrutorna är tom, visa felmeddelande
-            JOptionPane.showMessageDialog(null, "Fyll i båda fälten!");
-            txtEpost.requestFocus();
-            lsnLosenordAgent.requestFocus();
+        if ((Inmatningsvalidering.emailValidering(txtEpost) && Inmatningsvalidering.textValidering(lsnLosenordAgent))!=true) {
+        
         } else {
             try {
                 String epost = txtEpost.getText();
-                String losenord = lsnLosenordAgent.getSelectedText();
+                //Hämtar ut lösenordet
+                char[] losenorChar = lsnLosenordAgent.getPassword();
+                String losenord = new String(losenorChar);
 
                 // Formatera strängarna korrekt i SQL-frågan
                 String fraga = "SELECT EPOST, LOSENORD FROM AGENT WHERE EPOST = '" + epost + "' AND LOSENORD = '" + losenord + "'";
@@ -160,6 +165,10 @@ public class InLoggningAgent extends javax.swing.JFrame {
         InLoggningAgent.this.setVisible(false);
         nytt.setVisible(true);
     }//GEN-LAST:event_btnTillbaka2ActionPerformed
+
+    private void lsnLosenordAgentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lsnLosenordAgentActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lsnLosenordAgentActionPerformed
 
     /**
      * @param args the command line arguments

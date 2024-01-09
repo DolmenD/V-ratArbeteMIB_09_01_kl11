@@ -428,7 +428,7 @@ public class EfterInloggAdmin extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnAndraLosenordActionPerformed
 
-    private int getAlienID(String epost, String losenord) {
+    private int getAgentID(String epost) {
         int agentID = -1;
         try {
             // Skapa SQL-frågan för att hämta Agent_ID baserat på e-post och lösenord
@@ -453,7 +453,7 @@ public class EfterInloggAdmin extends javax.swing.JFrame {
     private void btnRegAlienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegAlienActionPerformed
 
         // Hämta agentID
-        int agentID = getAlienID(epost, nuvarandeLosenord);
+        int agentID = getAgentID(epost);
 
         // Skapa ett nytt objekt av RegNyAlien och skicka med agentID
         RegNyAlien nytt = new RegNyAlien(agentID,Tidigare);

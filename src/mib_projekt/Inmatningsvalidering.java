@@ -26,7 +26,7 @@ public class Inmatningsvalidering {
         boolean inmatat1 = true;
         if(Varde.getText().isEmpty()){
             //Om varde inte lagts in visas detta och metoden forsätter inte:
-            JOptionPane.showMessageDialog(null, "Någon/några ifyllnings rutor saknar värden");
+            JOptionPane.showMessageDialog(null, "Någon/några fält saknar värden");
             Varde.requestFocus();
             inmatat1  = false;
             
@@ -34,6 +34,7 @@ public class Inmatningsvalidering {
         // Returnerar det inmatade värdet.
         return inmatat1;
     }
+    
     //Metod för att validera att det faktiskt är en epost
     public static boolean emailValidering(JTextField Varde){
         boolean inmatat2 = false;
@@ -71,7 +72,14 @@ public class Inmatningsvalidering {
         return inmatat3;
     }
     
-    
+    public static boolean datumValidering(JTextField Varde){
+        boolean inmatat4 = false;
+        String text = Varde.getText();
+        if(textValidering(Varde)){
+            
+        }
+        return inmatat4;
+    }
     
     
     
