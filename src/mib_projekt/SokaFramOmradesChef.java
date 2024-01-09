@@ -13,13 +13,24 @@ import oru.inf.InfDB;
  * @author David
  */
 public class SokaFramOmradesChef extends javax.swing.JFrame {
-   
+    private String Tidigare;
     private InfDB idb;
     /**
      * Creates new form SokaFramOmradesChef
      */
     public SokaFramOmradesChef() {
         initComponents();
+        try {
+            idb = new InfDB("mibdb", "3306", "mibdba", "mibkey");
+            System.out.println("funka");
+        } catch (InfException ettUndantag) {
+            JOptionPane.showMessageDialog(null, "Något gick fel!");
+            System.out.println("Internt felmeddelande" + ettUndantag.getMessage());
+        }
+    }
+    public SokaFramOmradesChef(String Tidigare) {
+        initComponents();
+        this.Tidigare = Tidigare;
         try {
             idb = new InfDB("mibdb", "3306", "mibdba", "mibkey");
             System.out.println("funka");
@@ -122,9 +133,16 @@ public class SokaFramOmradesChef extends javax.swing.JFrame {
 
     private void btnTillbaka2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTillbaka2ActionPerformed
         // TODO add your handling code here:
-        EfterInloggAdmin nytt = new EfterInloggAdmin();
-        SokaFramOmradesChef.this.setVisible(false);
-        nytt.setVisible(true);
+        if(Tidigare.equals("ADMIN")){
+            EfterInloggAdmin nytt = new EfterInloggAdmin();
+            SokaFramOmradesChef.this.setVisible(false);
+            nytt.setVisible(true);
+        }
+        else{
+            EfterInlogg nytt = new EfterInlogg();
+            SokaFramOmradesChef.this.setVisible(false);
+            nytt.setVisible(true);
+        }
     }//GEN-LAST:event_btnTillbaka2ActionPerformed
 
     private String hamtaChefForOmrade(String omradeValt) throws InfException {

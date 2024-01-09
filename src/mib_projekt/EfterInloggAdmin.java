@@ -100,6 +100,7 @@ public class EfterInloggAdmin extends javax.swing.JFrame {
         jSeparator7 = new javax.swing.JSeparator();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        btnTopplista = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -261,6 +262,13 @@ public class EfterInloggAdmin extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
         jLabel4.setText("Utrustning:");
 
+        btnTopplista.setText("Topplista område");
+        btnTopplista.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTopplistaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -311,13 +319,15 @@ public class EfterInloggAdmin extends javax.swing.JFrame {
                         .addComponent(jSeparator6, javax.swing.GroupLayout.PREFERRED_SIZE, 8, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(btnRegNyUtrustning, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(btnListaUtrustning, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(btnBortUtrustning, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btnTopplista)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(btnRegNyUtrustning, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(btnListaUtrustning, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(btnBortUtrustning, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(21, 21, 21)
                         .addComponent(lbValkommen, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -359,7 +369,9 @@ public class EfterInloggAdmin extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(btnNyAgent)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(btnNyAgent)
+                                            .addComponent(btnTopplista))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                             .addComponent(btnAndraAgent)
@@ -582,7 +594,7 @@ public class EfterInloggAdmin extends javax.swing.JFrame {
 
     private void btnRegNyUtrustningActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegNyUtrustningActionPerformed
         // TODO add your handling code here:
-        RegNyUtrustning nytt = new RegNyUtrustning();
+        RegNyUtrustning nytt = new RegNyUtrustning(Tidigare);
         EfterInloggAdmin.this.setVisible(false);
         nytt.setVisible(true);
     }//GEN-LAST:event_btnRegNyUtrustningActionPerformed
@@ -593,6 +605,13 @@ public class EfterInloggAdmin extends javax.swing.JFrame {
         EfterInloggAdmin.this.setVisible(false);
         nytt.setVisible(true);
     }//GEN-LAST:event_btnTaBortAlienActionPerformed
+
+    private void btnTopplistaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTopplistaActionPerformed
+        // TODO add your handling code here:
+        TopplistaAgent nytt = new TopplistaAgent(Tidigare);
+        EfterInloggAdmin.this.setVisible(false);
+        nytt.setVisible(true);
+    }//GEN-LAST:event_btnTopplistaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -649,6 +668,7 @@ public class EfterInloggAdmin extends javax.swing.JFrame {
     private javax.swing.JButton btnSokaOmrådes;
     private javax.swing.JButton btnTaBortAlien;
     private javax.swing.JButton btnTillbaka2;
+    private javax.swing.JButton btnTopplista;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

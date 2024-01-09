@@ -33,32 +33,48 @@
                   </Group>
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="103" alignment="0" groupAlignment="1" attributes="0">
-                              <Component id="jLabel1" alignment="1" min="-2" pref="153" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="btnAndraLosenord" max="32767" attributes="0"/>
-                                  <Component id="txtNyttLosenord" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="lbAndraLosenord" max="32767" attributes="0"/>
-                              </Group>
-                          </Group>
-                          <Component id="btnListaUtrustning" alignment="0" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace max="32767" attributes="0"/>
-                      <Component id="jSeparator4" min="-2" pref="8" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="btnDatum" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="btnPlats" alignment="0" min="-2" pref="110" max="-2" attributes="0"/>
-                          <Component id="lbAndraLosenord1" max="32767" attributes="0"/>
                           <Group type="102" attributes="0">
-                              <Component id="btnRas" min="-2" pref="110" max="-2" attributes="0"/>
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" attributes="0">
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Group type="103" alignment="0" groupAlignment="1" attributes="0">
+                                              <Component id="jLabel1" alignment="1" min="-2" pref="153" max="-2" attributes="0"/>
+                                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                                  <Component id="btnAndraLosenord" max="32767" attributes="0"/>
+                                                  <Component id="txtNyttLosenord" alignment="0" max="32767" attributes="0"/>
+                                                  <Component id="lbAndraLosenord" max="32767" attributes="0"/>
+                                              </Group>
+                                          </Group>
+                                          <Component id="btnListaUtrustning" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                  </Group>
+                                  <Component id="btnRegNyUtrustning" max="32767" attributes="0"/>
+                                  <Component id="btnSokaOmrådes" alignment="0" max="32767" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="jSeparator4" min="-2" pref="8" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="lbAndraLosenord1" max="32767" attributes="0"/>
+                                  <Group type="102" attributes="0">
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="btnDatum" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="btnPlats" alignment="0" min="-2" pref="110" max="-2" attributes="0"/>
+                                          <Component id="btnRas" min="-2" pref="110" max="-2" attributes="0"/>
+                                          <Component id="jButton2" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                  </Group>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="jSeparator5" min="-2" pref="8" max="-2" attributes="0"/>
                           </Group>
+                          <Component id="btnTopplista" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jSeparator5" min="-2" pref="8" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="lbAndraLosenord2" max="32767" attributes="0"/>
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                   <Component id="btnRegAlien" alignment="1" max="32767" attributes="0"/>
@@ -66,7 +82,6 @@
                               </Group>
                               <EmptySpace min="-2" pref="66" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="lbAndraLosenord2" max="32767" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -88,8 +103,12 @@
                   </Group>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
-              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Group type="102" attributes="0">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="jSeparator4" alignment="0" pref="177" max="32767" attributes="0"/>
+                      <Component id="jSeparator5" alignment="0" max="32767" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Group type="102" attributes="0">
                               <Component id="lbAndraLosenord" min="-2" max="-2" attributes="0"/>
@@ -119,11 +138,18 @@
                           <Component id="btnDatum" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="btnRegAlien" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jButton2" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnRegNyUtrustning" alignment="0" min="-2" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
-                  <Component id="jSeparator4" alignment="0" pref="177" max="32767" attributes="0"/>
-                  <Component id="jSeparator5" alignment="0" max="32767" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="66" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Component id="btnSokaOmrådes" min="-2" max="-2" attributes="0"/>
+              <EmptySpace pref="12" max="32767" attributes="0"/>
+              <Component id="btnTopplista" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -252,6 +278,35 @@
         </Property>
         <Property name="text" type="java.lang.String" value="&#xc4;ndra Alieninformation"/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="jButton2">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Info om alien"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnTopplista">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Topplista omr&#xe5;de"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnTopplistaActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnRegNyUtrustning">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Registrera ny utrustning"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRegNyUtrustningActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnSokaOmr&#xe5;des">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="S&#xf6;ka omr&#xe5;deschef"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSokaOmr&#xe5;desActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

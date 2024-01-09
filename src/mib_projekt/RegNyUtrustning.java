@@ -15,6 +15,7 @@ import oru.inf.InfException;
 public class RegNyUtrustning extends javax.swing.JFrame {
 
       private InfDB idb;
+      private String Tidigare;
     /**
      * Creates new form RegNyUtrustning
      */
@@ -22,6 +23,20 @@ public class RegNyUtrustning extends javax.swing.JFrame {
     public RegNyUtrustning() {
         initComponents();
 
+        // Försök att skapa en anslutning till databasen
+        try {
+            idb = new InfDB("mibdb", "3306", "mibdba", "mibkey");
+            System.out.println("Databasanslutning lyckades");
+        } catch (InfException ettUndantag) {
+            // Visa felmeddelande om det uppstår problem med databasanslutningen
+            JOptionPane.showMessageDialog(null, "Något gick fel vid anslutning till databasen!");
+            System.out.println("Internt felmeddelande: " + ettUndantag.getMessage());
+        }
+    }
+    
+    public RegNyUtrustning(String Tidigare) {
+        initComponents();
+        this.Tidigare = Tidigare;
         // Försök att skapa en anslutning till databasen
         try {
             idb = new InfDB("mibdb", "3306", "mibdba", "mibkey");
@@ -191,9 +206,17 @@ public class RegNyUtrustning extends javax.swing.JFrame {
     }
     private void btnTillbaka2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTillbaka2ActionPerformed
         // TODO add your handling code here:
-        EfterInloggAdmin nytt = new EfterInloggAdmin();
-        RegNyUtrustning.this.setVisible(false);
-        nytt.setVisible(true);
+        
+        if(Tidigare.equals("ADMIN")){
+            EfterInloggAdmin nytt = new EfterInloggAdmin();
+            RegNyUtrustning.this.setVisible(false);
+            nytt.setVisible(true);
+        }
+        else{
+            EfterInlogg nytt = new EfterInlogg();
+            RegNyUtrustning.this.setVisible(false);
+            nytt.setVisible(true);
+        }
     }//GEN-LAST:event_btnTillbaka2ActionPerformed
     
     

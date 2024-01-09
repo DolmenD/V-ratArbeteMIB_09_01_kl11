@@ -20,7 +20,7 @@ import oru.inf.InfDB;
  * @author hillv
  */
 public class TopplistaAgent extends javax.swing.JFrame {
-
+    private String Tidigare;
     private InfDB idb;
     private int omradeID;
 
@@ -29,6 +29,19 @@ public class TopplistaAgent extends javax.swing.JFrame {
      */
     public TopplistaAgent() {
         initComponents();
+        try {
+            idb = new InfDB("mibdb", "3306", "mibdba", "mibkey");
+            System.out.println("Databasanslutning lyckades");
+            fyllOmradesCBox();
+        } catch (InfException ettUndantag) {
+            // Visa felmeddelande om det uppstår problem med databasanslutningen
+            JOptionPane.showMessageDialog(null, "Något gick fel vid anslutning till databasen!");
+            System.out.println("Internt felmeddelande: " + ettUndantag.getMessage());
+        }
+    }
+    public TopplistaAgent(String Tidigare) {
+        initComponents();
+        this.Tidigare = Tidigare; 
         try {
             idb = new InfDB("mibdb", "3306", "mibdba", "mibkey");
             System.out.println("Databasanslutning lyckades");
@@ -181,9 +194,16 @@ public class TopplistaAgent extends javax.swing.JFrame {
 
     private void btnTillbaka2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTillbaka2ActionPerformed
         // TODO add your handling code here:
-        EfterInlogg nytt = new EfterInlogg();
-        TopplistaAgent.this.setVisible(false);
-        nytt.setVisible(true);
+        if(Tidigare.equals("ADMIN")){
+            EfterInloggAdmin nytt = new EfterInloggAdmin();
+            TopplistaAgent.this.setVisible(false);
+            nytt.setVisible(true);
+        }
+        else{
+            EfterInlogg nytt = new EfterInlogg();
+            TopplistaAgent.this.setVisible(false);
+            nytt.setVisible(true);
+        }
     }//GEN-LAST:event_btnTillbaka2ActionPerformed
 
     private int getOmradeIDFromComboBox(String selectedOmrade) {
