@@ -218,27 +218,21 @@ public class RegNyAgent extends javax.swing.JFrame {
 
     private void fyllOmradeCBox() {
         try {
-            // SQL-fråga för att hämta Plats_ID och Benamning från plats-tabellen
             String fraga = "SELECT Omrades_ID, Benamning FROM omrade;";
-            // Utför SQL-frågan och få resultatet
             var resultat = idb.fetchRows(fraga);
 
-            // Iterera över varje rad i resultatet
             for (HashMap<String, String> rad : resultat) {
-                // Hämta Plats_ID och Benamning från raden
+                // Hämtar Omrades_ID och Benamning från raden
                 String OmradeIdStr = rad.get("Omrades_ID");
                 String OmradeNamn = rad.get("Benamning");
 
-                // Kontrollera om Plats_ID är inte null
+                // Kontrollerar så att Plats_ID inte är null
                 if (OmradeIdStr != null) {
-                    // Konvertera Plats_ID till integer
-                    int OmradeId = Integer.parseInt(OmradeIdStr);
-                    // Lägg till Benamning i dropdown-menyn
+                    // Lägger till Benamning i dropdown-menyn
                     cbtnOmrade.addItem(OmradeNamn);
                 }
             }
         } catch (InfException ex) {
-            // Visa felmeddelande om något går fel med databasen
             JOptionPane.showMessageDialog(null, "Något gick fel!");
             System.out.println("Internt felmeddelande" + ex.getMessage());
         }

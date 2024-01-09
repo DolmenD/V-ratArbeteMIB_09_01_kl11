@@ -110,27 +110,21 @@ public class TaBortAgent extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    //Lägger in namnen i cb
        private void AgentNamnScroll(){
         try {
-            // SQL-fråga för att hämta Plats_ID och Benamning från plats-tabellen
             String fraga = "SELECT Agent_ID, Namn FROM agent;";
-            // Utför SQL-frågan och få resultatet
             var resultat = idb.fetchRows(fraga);
 
-            // Iterera över varje rad i resultatet
             for (HashMap<String, String> rad : resultat) {
-                // Hämta Plats_ID och Benamning från raden
                 String AgentIdStr = rad.get("Agent_ID");
                 String AgentNamn = rad.get("Namn");
 
-                // Kontrollera om Plats_ID är inte null
                 if (AgentIdStr != null) {
-                    // Lägg till Benamning i dropdown-menyn
                     cbtnAgentNamn.addItem(AgentNamn);
                 }
             }
         } catch (InfException ex) {
-            // Visa felmeddelande om något går fel med databasen
             JOptionPane.showMessageDialog(null, "Något gick fel!");
             System.out.println("Internt felmeddelande" + ex.getMessage());
         }

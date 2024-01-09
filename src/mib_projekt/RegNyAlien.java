@@ -202,7 +202,7 @@ public class RegNyAlien extends javax.swing.JFrame {
         // TODO add your handling 
         if(Inmatningsvalidering.emailValidering(txtEpost) && Inmatningsvalidering.textValidering(txtLosenord) && Inmatningsvalidering.textValidering(txtNamn) && Inmatningsvalidering.telefonValidering(txtTelefon)){
             try {
-                // Hämta värden från användarinmatning
+                // Hämtar värden från användarinmatning
                 String epost = txtEpost.getText();
                 String losenord = txtLosenord.getText();
                 String telefon = txtTelefon.getText();
@@ -211,30 +211,28 @@ public class RegNyAlien extends javax.swing.JFrame {
                 //kollar så att eposten inte redan används
                 String kollaEpost = "SELECT epost FROM Alien WHERE epost = '" + epost + "'";
                 String svarKollaEpost = idb.fetchSingle(kollaEpost);
-
+                //om den redan används öppnas ett nytt fönster där det står att eposten redan används
                 if (svarKollaEpost != null){
                          JOptionPane.showMessageDialog(null, "Eposten används redan! Vänligen skriv en ny!");
                     }else{
 
-                // Hämta valt platsnamn från dropdown-menyn
+                //Hämtar valt platsnamn ifrån cb
                 String valtPlatsNamn = cbtnPlats.getSelectedItem().toString();
 
-                // Hämta plats ID baserat på platsnamnet
+                //Hämtar plats ID baserat på platsnamnet
                 String fragaPlatsID = "SELECT Plats_ID FROM plats WHERE Benamning = '" + valtPlatsNamn + "';";
                 String platsID = idb.fetchSingle(fragaPlatsID);
 
-                // Skapa nytt AlienID
+                //Skapar nytt AlienID automatiskt
                 String fragaAlienID = "SELECT COALESCE(MAX(Alien_ID), 0) + 1 AS NextAlienID FROM Alien";
                 String alienIDResult = idb.fetchSingle(fragaAlienID);
                 int alienID = (alienIDResult != null) ? Integer.parseInt(alienIDResult) : 1;
 
-                // Bygg upp SQL-frågan för att registrera alien i databasen
                 String fragaRegistreraAlien = "INSERT INTO alien (Epost, Losenord, Alien_ID, Telefon, Plats, Namn, Registreringsdatum, Ansvarig_Agent) VALUES "
                         + "('" + epost + "', '" + losenord + "', " + alienID + ", '" + telefon + "', '" + platsID + "', '" + Namn + "', CURDATE(), " + agentID + ");";
                 
-                // Utför SQL-frågan för att registrera alien
+                //Kör sql frågan
                 idb.insert(fragaRegistreraAlien);
-
                 String InfoRas = txtInfoRas.getText();
                 int InfoRas1 = Integer.parseInt(InfoRas);
 
@@ -250,13 +248,12 @@ public class RegNyAlien extends javax.swing.JFrame {
                 }
                 
                 String fragaRasAlien = "INSERT INTO " + rasTable + " (Alien_ID, " + columnName + ") VALUES (" + alienID + "," + InfoRas1 + ");";
-                // Utför SQL-frågan för att registrera alien
+                // Utför SQL frågan för att registrera alien
                 idb.insert(fragaRasAlien);
-                // Visa meddelande om registreringen lyckades
+                //Visar ett meddelande om registreringen lyckades
                 JOptionPane.showMessageDialog(null, "Alien registrerad!");
 
             }} catch (InfException ex) {
-                // Visa felmeddelande om något går fel med databasen
                 JOptionPane.showMessageDialog(null, "Något gick fel!");
                 System.out.println("Internt felmeddelande" + ex.getMessage());
             }
