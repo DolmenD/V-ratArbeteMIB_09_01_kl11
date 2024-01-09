@@ -3,29 +3,31 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package mib_projekt;
-import oru.inf.InfDB;
-import oru.inf.InfException; 
+
+import java.util.HashMap;
 
 import javax.swing.JOptionPane;
 import oru.inf.InfDB;
 import oru.inf.InfException;
 
-
-        
 /**
  *
  * @author David
  */
 public class AndraOmradesChef extends javax.swing.JFrame {
+
     private InfDB idb;
+    private int valtAgentID;
+
     /**
      * Creates new form AndraOmradesChef
      */
     public AndraOmradesChef() {
         initComponents();
-              try {
+        try {
             idb = new InfDB("mibdb", "3306", "mibdba", "mibkey");
             System.out.println("funka");
+            fyllCbtnAgentNamn();
         } catch (InfException ettUndantag) {
             JOptionPane.showMessageDialog(null, "Något gick fel!");
             System.out.println("Internt felmeddelande" + ettUndantag.getMessage());
@@ -45,26 +47,19 @@ public class AndraOmradesChef extends javax.swing.JFrame {
         jlOmrade = new javax.swing.JLabel();
         jlAndraOmradesChef = new javax.swing.JLabel();
         ValjOmradeCBox = new javax.swing.JComboBox<>();
-        jtxtAgentID = new javax.swing.JTextField();
         jbGodkanAndring = new javax.swing.JButton();
         btnTillbaka3 = new javax.swing.JButton();
+        cbtnAgentNamn = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jlAgentID.setText("Agent ID");
+        jlAgentID.setText("Agent:");
 
         jlOmrade.setText("Område");
 
         jlAndraOmradesChef.setText("Andra Områdeschef");
 
         ValjOmradeCBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Svealand", "Götaland", "Norrland" }));
-
-        jtxtAgentID.setText("Skriv in Agent ID");
-        jtxtAgentID.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jtxtAgentIDActionPerformed(evt);
-            }
-        });
 
         jbGodkanAndring.setText("godkän ändring");
         jbGodkanAndring.addActionListener(new java.awt.event.ActionListener() {
@@ -86,16 +81,20 @@ public class AndraOmradesChef extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(29, 29, 29)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jlAgentID, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jlOmrade, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jbGodkanAndring, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jlAndraOmradesChef, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(ValjOmradeCBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jtxtAgentID))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 178, Short.MAX_VALUE)
-                .addComponent(btnTillbaka3)
-                .addContainerGap())
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(cbtnAgentNamn, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jlAgentID, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jlOmrade, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jbGodkanAndring, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jlAndraOmradesChef, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(ValjOmradeCBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 178, Short.MAX_VALUE)
+                        .addComponent(btnTillbaka3)
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -104,9 +103,9 @@ public class AndraOmradesChef extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jlAgentID)
                     .addComponent(btnTillbaka3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jtxtAgentID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(cbtnAgentNamn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jlOmrade)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(ValjOmradeCBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -120,37 +119,72 @@ public class AndraOmradesChef extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jtxtAgentIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtxtAgentIDActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jtxtAgentIDActionPerformed
-
     private void jbGodkanAndringActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGodkanAndringActionPerformed
-    // Andra omdrådeschef 
-        if (jtxtAgentID.getText().isEmpty() || ValjOmradeCBox.getSelectedItem().toString().isEmpty()) {
-        // Om någon av textrutorna är tom, visa felmeddelande
-        JOptionPane.showMessageDialog(null, "Du måste skriva in rätt AgentID och välja rätt område");
-        jtxtAgentID.requestFocus();
-        } else{
-            try{
-                
-                String agentID = jtxtAgentID.getText();
-                String omrade = ValjOmradeCBox.getSelectedItem().toString();
-                
-                if (!agentID.isEmpty()){  
-                    String omradesID = idb.fetchSingle("SELECT Omrades_ID FROM omrade WHERE benamning =" + "'" + omrade + "'");
-               
-                    // Uppdaterar den nya områdeschefen
-                    idb.update("UPDATE omradeschef SET agent_ID = " + agentID + ", omrade = " + "'" + omradesID + "'" + "WHERE omrade = '" + omradesID + "'");
-                    // Meddalar användaren att ändringen är lyckad
-                    JOptionPane.showMessageDialog(null, "Områdeschefen har nu lyckats ändrats");
-                }
-            } catch (InfException e) {
-                //Om något annat fel visas detta.
-            JOptionPane.showMessageDialog(null, "Hoppsan, något gick fel!");
-            System.out.println("Internt felmeddelande" + e.getMessage());
+        // Andra omdrådeschef 
+        String valtAgentNamn = (String) cbtnAgentNamn.getSelectedItem();
+
+        try {
+
+            String omrade = ValjOmradeCBox.getSelectedItem().toString();
+            String fraga = "SELECT Agent_ID FROM Agent WHERE Namn = '" + valtAgentNamn + "'";
+            // Utför SQL-frågan och få resultatet
+            var resultat = idb.fetchSingle(fraga);
+
+            if (resultat != null) {
+                // Konvertera resultatet till integer och lagra det i valtAlienID
+                valtAgentID = Integer.parseInt(resultat);
             }
+
+                String omradesID = idb.fetchSingle("SELECT Omrades_ID FROM omrade WHERE benamning =" + "'" + omrade + "'");
+                
+                String kollaRedanOmradeschef = "SELECT Agent_ID from Omradeschef WHERE Agent_ID = " +  valtAgentID;
+                String svarRedanOmradeschef = idb.fetchSingle(kollaRedanOmradeschef);
+                
+                
+                if(svarRedanOmradeschef != null){
+                     JOptionPane.showMessageDialog(null, "Agenten är redan områdeschef");
+                }else{
+
+                // Uppdaterar den nya områdeschefen
+                idb.update("UPDATE omradeschef SET agent_ID = " +  valtAgentID + ", omrade = " + "'" + omradesID + "'" + "WHERE omrade = '" + omradesID + "'");
+                // Meddalar användaren att ändringen är lyckad
+                JOptionPane.showMessageDialog(null, "Områdeschefen har nu lyckats ändrats");
+                }
+        } catch (InfException e) {
+            //Om något annat fel visas detta.
+            JOptionPane.showMessageDialog(null, "Något gick fel!");
+            System.out.println("Internt felmeddelande" + e.getMessage());
         }
+
     }//GEN-LAST:event_jbGodkanAndringActionPerformed
+
+    private void fyllCbtnAgentNamn() {
+        try {
+            // SQL-fråga för att hämta Plats_ID och Benamning från plats-tabellen
+            String fraga = "SELECT Agent_ID, Namn FROM Agent;";
+            // Utför SQL-frågan och få resultatet
+            var resultat = idb.fetchRows(fraga);
+
+            // Iterera över varje rad i resultatet
+            for (HashMap<String, String> rad : resultat) {
+                // Hämta Plats_ID och Benamning från raden
+                String AgentIdStr = rad.get("Agent_ID");
+                String AgentNamn = rad.get("Namn");
+
+                // Kontrollera om Plats_ID är inte null
+                if (AgentIdStr != null) {
+                    // Konvertera Plats_ID till integer
+                    // Lägg till Benamning i dropdown-menyn
+                    cbtnAgentNamn.addItem(AgentNamn);
+                }
+            }
+        } catch (InfException ex) {
+            // Visa felmeddelande om något går fel med databasen
+            JOptionPane.showMessageDialog(null, "Något gick fel!");
+            System.out.println("Internt felmeddelande" + ex.getMessage());
+        }
+    }
+
 
     private void btnTillbaka3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTillbaka3ActionPerformed
         // TODO add your handling code here:
@@ -196,12 +230,11 @@ public class AndraOmradesChef extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> ValjOmradeCBox;
-    private javax.swing.JButton btnTillbaka2;
     private javax.swing.JButton btnTillbaka3;
+    private javax.swing.JComboBox<String> cbtnAgentNamn;
     private javax.swing.JButton jbGodkanAndring;
     private javax.swing.JLabel jlAgentID;
     private javax.swing.JLabel jlAndraOmradesChef;
     private javax.swing.JLabel jlOmrade;
-    private javax.swing.JTextField jtxtAgentID;
     // End of variables declaration//GEN-END:variables
 }

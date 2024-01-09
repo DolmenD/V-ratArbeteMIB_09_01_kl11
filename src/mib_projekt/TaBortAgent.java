@@ -169,8 +169,25 @@ public class TaBortAgent extends javax.swing.JFrame {
 
             var agentID = idb.fetchSingle(fraga);
             var agentID2 = idb.fetchSingle(fraga2);
-
-            if (agentID != null) {
+            
+            String fragaOmradesChef = "SELECT benamning FROM omrade JOIN omradeschef ON omrades_id = omrade WHERE Agent_ID = " + agentID;
+            String svarOmradesChef = idb.fetchSingle(fragaOmradesChef);
+            
+            String fragaKontorsChef = "SELECT Agent_ID from kontorschef WHERE Agent_ID = " + agentID;
+            String svarKontorschef = idb.fetchSingle(fragaKontorsChef);
+            if(svarOmradesChef != null){
+                JOptionPane.showMessageDialog(null, "Agenten är omradeschef för: " + svarOmradesChef+ " vänligen välj ny chef för: " +svarOmradesChef);
+                   AndraOmradesChef nytt = new AndraOmradesChef();
+                   TaBortAgent.this.setVisible(false);
+                   nytt.setVisible(true);
+            }
+            else if(svarKontorschef != null){
+                 JOptionPane.showMessageDialog(null, "Agenten är kontorschef! Vänligen utse en ny kontorschef");
+                   AndraKontorsChef nytt = new AndraKontorsChef();
+                   TaBortAgent.this.setVisible(false);
+                   nytt.setVisible(true);
+            }
+            else {
                 
                 idb.update("UPDATE Alien SET Ansvarig_Agent = " + agentID2 + " WHERE Ansvarig_Agent = " + agentID);
                 
@@ -183,9 +200,7 @@ public class TaBortAgent extends javax.swing.JFrame {
                
                 JOptionPane.showMessageDialog(null, valtAgentNamn + " har tagits bort");
             
-            } else {
-            JOptionPane.showMessageDialog(null, "Något gick fel");
-        }
+            }
     } catch (InfException e) {
         JOptionPane.showMessageDialog(null, "Vänligen välj en ny ansvarig agent för Alien innan du tar bort Agenten");
         System.out.println("Internt felmeddelande: " + e.getMessage());

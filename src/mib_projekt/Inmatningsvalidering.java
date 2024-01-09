@@ -10,7 +10,7 @@ import javax.swing.JTextField;
 
 /**
  *
- * @author David
+ * @author David, William
  */
 
 //Denna klass är enligt kravspecifikationen fristående och syftar till att validera användarinmatningen.
@@ -20,7 +20,7 @@ import javax.swing.JTextField;
 public class Inmatningsvalidering {
      
     // Metoden för att validera om textfältet är tomt
-    public static boolean vardeInmatat(JTextField Varde){
+    public static boolean textValidering(JTextField Varde){
         
         //Om sann forsätter metoden
         boolean inmatat1 = true;
@@ -37,9 +37,10 @@ public class Inmatningsvalidering {
     //Metod för att validera att det faktiskt är en epost
     public static boolean emailValidering(JTextField Varde){
         boolean inmatat2 = false;
+        //Gör om textfältet till en string
         String text = Varde.getText();
         //Kollar först om den är tom
-        if(vardeInmatat(Varde)){
+        if(textValidering(Varde)){
             //Kollar ifall man använder sig utav @
             if(text.contains("@")){
                inmatat2 = true; 
@@ -53,5 +54,27 @@ public class Inmatningsvalidering {
         return inmatat2;        
     }
     
+    //Metod för att validera att det är ett telefon nummer
+    public static boolean telefonValidering(JTextField Varde){
+        boolean inmatat3 = false;
+        String text = Varde.getText();
+        //Kollar om den är tom
+        if(textValidering(Varde)){
+            //Kollar så att det endast är minustecken och siffror
+          if(text.matches("[0-9-]*")){
+              inmatat3 = true;
+          }
+          else{
+              JOptionPane.showMessageDialog(null, "Ett telefonnummer får endast innehålla siffror och -");
+          }
+        }
+        return inmatat3;
+    }
+    
+    
+    
+    
+    
     
 }
+

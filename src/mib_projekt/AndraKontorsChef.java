@@ -2,32 +2,37 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-
 package mib_projekt;
+
+import java.util.HashMap;
 import oru.inf.InfDB;
-import oru.inf.InfException; 
+import oru.inf.InfException;
 
 import javax.swing.JOptionPane;
+
 /**
  *
  * @author David
  */
 public class AndraKontorsChef extends javax.swing.JFrame {
+
     private InfDB idb;
-    
+    private int valtAgentID;
+
     /**
      * Creates new form AndraKontorsChef
      */
     public AndraKontorsChef() {
-          initComponents();
-            try {
+        initComponents();
+        try {
             idb = new InfDB("mibdb", "3306", "mibdba", "mibkey");
             System.out.println("funka");
+            fyllCbtnAgentNamn();
         } catch (InfException ettUndantag) {
             JOptionPane.showMessageDialog(null, "Något gick fel!");
             System.out.println("Internt felmeddelande" + ettUndantag.getMessage());
         }
-          
+
     }
 
     /**
@@ -39,19 +44,17 @@ public class AndraKontorsChef extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jtxtAgentID = new javax.swing.JTextField();
         jlAndraKontorschef = new javax.swing.JLabel();
         jlSkrivIAgentID = new javax.swing.JLabel();
         jbBekraftaAndring = new javax.swing.JButton();
         btnTillbaka3 = new javax.swing.JButton();
+        cbtnAgentNamn = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jtxtAgentID.setText("AgentID");
-
         jlAndraKontorschef.setText("Ändra kontorschef");
 
-        jlSkrivIAgentID.setText("Skriv in AgentID för den nytillträdande kontorschefen");
+        jlSkrivIAgentID.setText("Agent som tillträder som ny kontorschef:");
 
         jbBekraftaAndring.setText("Bekräfta ändring");
         jbBekraftaAndring.addActionListener(new java.awt.event.ActionListener() {
@@ -78,9 +81,12 @@ public class AndraKontorsChef extends javax.swing.JFrame {
                         .addComponent(jlAndraKontorschef)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 168, Short.MAX_VALUE)
                         .addComponent(btnTillbaka3))
-                    .addComponent(jtxtAgentID, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jlSkrivIAgentID)
-                    .addComponent(jbBekraftaAndring))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cbtnAgentNamn, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jlSkrivIAgentID)
+                            .addComponent(jbBekraftaAndring))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -95,9 +101,9 @@ public class AndraKontorsChef extends javax.swing.JFrame {
                         .addComponent(btnTillbaka3)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jlSkrivIAgentID)
-                .addGap(18, 18, 18)
-                .addComponent(jtxtAgentID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(cbtnAgentNamn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12)
                 .addComponent(jbBekraftaAndring)
                 .addContainerGap(157, Short.MAX_VALUE))
         );
@@ -107,38 +113,38 @@ public class AndraKontorsChef extends javax.swing.JFrame {
 
     private void jbBekraftaAndringActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBekraftaAndringActionPerformed
 
+        String valtAgentNamn = (String) cbtnAgentNamn.getSelectedItem();
         //Klicka på knapp bekfräta ändring
-        
-        if (jtxtAgentID.getText().isEmpty()){
-        // Om textrutan är tom, visa felmeddelande
-        JOptionPane.showMessageDialog(null, "Fyll i AgentID");
-        jtxtAgentID.requestFocus();
-
-        } else {
-            try {
-            String Agent_ID = jtxtAgentID.getText();
+        try {
             
+            String fraga = "SELECT Agent_ID FROM Agent WHERE Namn = '" + valtAgentNamn + "'";
+            // Utför SQL-frågan och få resultatet
+            var resultat = idb.fetchSingle(fraga);
+
+            if (resultat != null) {
+                // Konvertera resultatet till integer och lagra det i valtAlienID
+                valtAgentID = Integer.parseInt(resultat);
+            }
+
             //Kolla om Agent redan är kontorschef
             String existerandeChef = idb.fetchSingle(
-               "SELECT agent_ID FROM kontorschef WHERE agent_ID =" + Agent_ID );
-            
-            if (existerandeChef !=null){
+                    "SELECT agent_ID FROM kontorschef WHERE agent_ID =" + valtAgentID);
+
+            if (existerandeChef != null) {
                 JOptionPane.showMessageDialog(null, "Agenten du valt är den nuvarande kontorschefen");
-                
-            } else if (Agent_ID !=null){
-                String agentNamn = idb.fetchSingle("SELECT Namn FROM agent WHERE agent_ID = " + Agent_ID);
-                idb.update("UPDATE kontorschef SET agent_ID =" + Agent_ID);
-                System.out.println("Kontorschefen är nu ändrad till " + agentNamn);
-            
-            } else{
-            System.out.println("Kontorschefsändringen misslyckadas, kontrollera AgentID");
+
+            }else{
+            String agentNamn = idb.fetchSingle("SELECT Namn FROM agent WHERE agent_ID = " + valtAgentID);
+            idb.update("UPDATE kontorschef SET agent_ID =" + valtAgentID);
+            System.out.println("Kontorschefen är nu ändrad till " + agentNamn);
+            JOptionPane.showMessageDialog(null, "Ny kontorschef registrerad: " + agentNamn);
             }
-        
-            } catch (InfException e) {
+
+        } catch (InfException e) {
             JOptionPane.showMessageDialog(null, "Något gick fel!");
             System.out.println("Internt felmeddelande" + e.getMessage());
-            }
-        } 
+        }
+
     }//GEN-LAST:event_jbBekraftaAndringActionPerformed
 
     private void btnTillbaka3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTillbaka3ActionPerformed
@@ -147,8 +153,34 @@ public class AndraKontorsChef extends javax.swing.JFrame {
         AndraKontorsChef.this.setVisible(false);
         nytt.setVisible(true);
     }//GEN-LAST:event_btnTillbaka3ActionPerformed
-      
-    
+
+    private void fyllCbtnAgentNamn() {
+        try {
+            // SQL-fråga för att hämta Plats_ID och Benamning från plats-tabellen
+            String fraga = "SELECT Agent_ID, Namn FROM Agent;";
+            // Utför SQL-frågan och få resultatet
+            var resultat = idb.fetchRows(fraga);
+
+            // Iterera över varje rad i resultatet
+            for (HashMap<String, String> rad : resultat) {
+                // Hämta Plats_ID och Benamning från raden
+                String AgentIdStr = rad.get("Agent_ID");
+                String AgentNamn = rad.get("Namn");
+
+                // Kontrollera om Plats_ID är inte null
+                if (AgentIdStr != null) {
+                    // Konvertera Plats_ID till integer
+                    // Lägg till Benamning i dropdown-menyn
+                    cbtnAgentNamn.addItem(AgentNamn);
+                }
+            }
+        } catch (InfException ex) {
+            // Visa felmeddelande om något går fel med databasen
+            JOptionPane.showMessageDialog(null, "Något gick fel!");
+            System.out.println("Internt felmeddelande" + ex.getMessage());
+        }
+    }
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -183,9 +215,9 @@ public class AndraKontorsChef extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnTillbaka3;
+    private javax.swing.JComboBox<String> cbtnAgentNamn;
     private javax.swing.JButton jbBekraftaAndring;
     private javax.swing.JLabel jlAndraKontorschef;
     private javax.swing.JLabel jlSkrivIAgentID;
-    private javax.swing.JTextField jtxtAgentID;
     // End of variables declaration//GEN-END:variables
 }

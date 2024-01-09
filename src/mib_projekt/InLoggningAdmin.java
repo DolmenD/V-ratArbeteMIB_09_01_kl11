@@ -135,7 +135,7 @@ public class InLoggningAdmin extends javax.swing.JFrame {
                 // Utför frågan och hämta resultatet
                 String svar = idb.fetchSingle(fraga);
                 // Kontrollera om resultatet är tomt eller null
-                if (Inmatningsvalidering.vardeInmatat(txtEpost) && Inmatningsvalidering.vardeInmatat(lsnLosenord)) {
+                if (Inmatningsvalidering.emailValidering(txtEpost) && Inmatningsvalidering.textValidering(lsnLosenord)) {
                     // Uppdatera användargränssnittet eller gör något med resultatet
                     EfterInloggAdmin nytt = new EfterInloggAdmin(lsnLosenord.getSelectedText());
                     InLoggningAdmin.this.setVisible(false);
