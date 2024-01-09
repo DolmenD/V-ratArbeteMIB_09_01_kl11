@@ -129,27 +129,22 @@ public class TaBortAgent extends javax.swing.JFrame {
             System.out.println("Internt felmeddelande" + ex.getMessage());
         }
     }
+      //En till cb som hämtar namn och det valda namnet tar sen över aliens som den andra
+       // agenten ansvarade över
       private void AgentNamnScroll2(){
         try {
-            // SQL-fråga för att hämta Plats_ID och Benamning från plats-tabellen
             String fraga = "SELECT Agent_ID, Namn FROM agent;";
-            // Utför SQL-frågan och få resultatet
             var resultat = idb.fetchRows(fraga);
 
-            // Iterera över varje rad i resultatet
             for (HashMap<String, String> rad : resultat) {
-                // Hämta Plats_ID och Benamning från raden
                 String AgentIdStr = rad.get("Agent_ID");
                 String AgentNamn = rad.get("Namn");
 
-                // Kontrollera om Plats_ID är inte null
                 if (AgentIdStr != null) {
-                    // Lägg till Benamning i dropdown-menyn
                     cbtnAgentNamn1.addItem(AgentNamn);
                 }
             }
         } catch (InfException ex) {
-            // Visa felmeddelande om något går fel med databasen
             JOptionPane.showMessageDialog(null, "Något gick fel!");
             System.out.println("Internt felmeddelande" + ex.getMessage());
         }
@@ -169,18 +164,21 @@ public class TaBortAgent extends javax.swing.JFrame {
             
             String fragaKontorsChef = "SELECT Agent_ID from kontorschef WHERE Agent_ID = " + agentID;
             String svarKontorschef = idb.fetchSingle(fragaKontorsChef);
+            //Kollar att den inte är omradeschef och isådanna fall får man ändra det i en av de andra klasserna
             if(svarOmradesChef != null){
                 JOptionPane.showMessageDialog(null, "Agenten är omradeschef för: " + svarOmradesChef+ " vänligen välj ny chef för: " +svarOmradesChef);
                    AndraOmradesChef nytt = new AndraOmradesChef();
                    TaBortAgent.this.setVisible(false);
                    nytt.setVisible(true);
             }
+            //Kollar så att den inte är kontorschef
             else if(svarKontorschef != null){
                  JOptionPane.showMessageDialog(null, "Agenten är kontorschef! Vänligen utse en ny kontorschef");
                    AndraKontorsChef nytt = new AndraKontorsChef();
                    TaBortAgent.this.setVisible(false);
                    nytt.setVisible(true);
             }
+            //den andra agenten tar över alla aliens och sedan raderas alla valda aliens
             else {
                 
                 idb.update("UPDATE Alien SET Ansvarig_Agent = " + agentID2 + " WHERE Ansvarig_Agent = " + agentID);

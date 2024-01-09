@@ -115,15 +115,15 @@ public class SokaFramOmradesChef extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    //Hämtar namnet på områdeschefen från området som är valt i cb
     private void btSokKnappActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSokKnappActionPerformed
         
     String omradeValt = CBomrade.getSelectedItem().toString();
 
     try{
         String chefOverOmrade = hamtaChefForOmrade(omradeValt);
-        
-        
         lbAnsvarigAgent.setText("Områdeschefen över " + omradeValt + " är: " + chefOverOmrade + "");
+    
     } catch (InfException undantag){
         undantag.printStackTrace();
         JOptionPane.showMessageDialog(null, "Något gick fel");

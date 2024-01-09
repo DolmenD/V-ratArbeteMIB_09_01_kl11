@@ -145,13 +145,10 @@ public class InLoggningAlien extends javax.swing.JFrame {
         char[] losenorChar = lsnLosenordAlien.getPassword();
         String losenord = new String(losenorChar);
         
-        // Formatera strängarna korrekt i SQL-frågan
+        //Kollar så att epost och lösen finns i databasen och hör ihop
         String fraga = "SELECT EPOST, LOSENORD FROM ALIEN WHERE EPOST = '" + epost + "' AND LOSENORD = '" + losenord + "'";
-        
-        // Utför frågan och hämta resultatet
         String svar = idb.fetchSingle(fraga);
-        //String resultat = svar;
-        //lbValkommen.setText(resultat);
+
         if (svar !=null && !svar.isEmpty()){
             lbValkommen.setText("Inloggningen lyckades välkommen!"+ epost);
             EfterInloggningAlien nytt = new EfterInloggningAlien(epost);

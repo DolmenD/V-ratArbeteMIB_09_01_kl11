@@ -131,17 +131,13 @@ public class GeAgentAdminstatus extends javax.swing.JFrame {
 
     private void fyllAgentNamn() {
         try {
-            // SQL-fråga för att hämta Plats_ID och Benamning från plats-tabellen
             String fraga = "SELECT Agent_ID, Namn FROM agent;";
-            // Utför SQL-frågan och få resultatet
             var resultat = idb.fetchRows(fraga);
-            // Iterera över varje rad i resultatet
             for (HashMap<String, String> rad : resultat) {
                 // Hämta Plats_ID och Benamning från raden
                 String AgentIdStr = rad.get("Agent_ID");
                 String AgentNamn = rad.get("Namn");
 
-                // Kontrollera om Plats_ID är inte null
                 if (AgentIdStr != null) {
                     // Lägg till Benamning i dropdown-menyn
                     ComboBoxValjAgent.addItem(AgentNamn);
@@ -156,6 +152,7 @@ public class GeAgentAdminstatus extends javax.swing.JFrame {
 
 
     private void btnGodkannActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGodkannActionPerformed
+        //Hämtar namnet från cb och om den redan är admin försvinner det annar får den admin
         try {
             String valtAgentNamn = ComboBoxValjAgent.getSelectedItem().toString();
 

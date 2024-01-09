@@ -340,7 +340,7 @@ public class AndraInfoAlien extends javax.swing.JFrame {
 
         String rasInfo = txtRasInfo.getText();
 
-        // Implementera logiken för att lägga till alien i den nya rasen
+        // Byter ras på alien till den nya rasen man valde
         if ("Squid".equals(currentRas)) {
             // Lägg till i den nya Squid-tabellen
             String insertIntoSquid = "INSERT INTO SQUID (ALIEN_ID, ANTAL_ARMAR) VALUES "
@@ -361,7 +361,7 @@ public class AndraInfoAlien extends javax.swing.JFrame {
 
 
     private void cbtnRasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbtnRasActionPerformed
-        // TODO add your handling code here:
+        //Byter ras specifik information 
         String ras = (String) cbtnRas.getSelectedItem();
 
         if ("Squid".equals(ras)) {
@@ -389,7 +389,7 @@ public class AndraInfoAlien extends javax.swing.JFrame {
             nytt.setVisible(true);
         }
     }//GEN-LAST:event_btnTillbakaActionPerformed
-
+    //hämtar den nuvarande platsen som alienen är på just nu
     private String hamtaNuvarandePlats() {
         try {
             String platsFraga = "SELECT Benamning FROM plats WHERE Plats_ID = (SELECT Plats FROM ALIEN WHERE ALIEN_ID = '" + AlienID + "')";
@@ -412,22 +412,17 @@ public class AndraInfoAlien extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
+    //fyller combo boxen med namn
     private void fyllPlatsCBox() {
         try {
-            // Hämta nuvarande plats för alien
             String nuvarandePlats = hamtaNuvarandePlats();
 
-            // SQL-fråga för att hämta Plats_ID och Benamning från plats-tabellen
             String fraga = "SELECT Plats_ID, Benamning FROM plats;";
-            // Utför SQL-frågan och få resultatet
             var resultat = idb.fetchRows(fraga);
 
-            // Lägg till nuvarande plats för den valda alien i ComboBox
             cbtnPlats.addItem(nuvarandePlats);
 
-            // Iterera över varje rad i resultatet
             for (HashMap<String, String> rad : resultat) {
-                // Hämta Plats_ID och Benamning från raden
                 String platsIdStr = rad.get("Plats_ID");
                 String platsNamn = rad.get("Benamning");
 

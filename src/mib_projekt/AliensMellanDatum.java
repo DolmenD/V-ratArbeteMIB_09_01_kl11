@@ -178,24 +178,20 @@ public class AliensMellanDatum extends javax.swing.JFrame {
     private void txtFirstDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFirstDateActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtFirstDateActionPerformed
-    
+    //fyller en cb med alien namn
     private void fyllcbnamn(){
         try {
             String fraga;
-            //SQL fråga som hämtar namnen mellan två datum
-            fraga = "SELECT Namn FROM Alien WHERE Registreringsdatum BETWEEN '"+ txtFirstDate.getText() +"' AND '"+ txtSecondDate.getText() +"';";
-            //Lägger in namnen i enn ArrayList  
+            fraga = "SELECT Namn FROM Alien WHERE Registreringsdatum BETWEEN '"+ txtFirstDate.getText() +"' AND '"+ txtSecondDate.getText() +"';"; 
             ArrayList<String> namnen = idb.fetchColumn(fraga);
-            // Iterera över varje namn
             for(String alienNamn : namnen){
-                // Kontrollera om benämning inte null
                 if (alienNamn != null) {
-                    // Lägg till namnet i combo box
+                    // Lägger till namnet i combo box
                     cbNamn.addItem(alienNamn);
                 }
             }
         } catch (InfException ex) {
-            // Visa felmeddelande om något går fel med databasen
+            // Visar felmeddelande om något går fel med databasen
             JOptionPane.showMessageDialog(null, "Något gick fel!");
             System.out.println("Internt felmeddelande" + ex.getMessage());
         }

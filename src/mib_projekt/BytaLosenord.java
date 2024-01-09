@@ -119,7 +119,7 @@ public class BytaLosenord extends javax.swing.JFrame {
     }//GEN-LAST:event_txtLosenordActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        //ändrar på lösenordet i databasen
+        //ändrar på lösenordet i databasen när man klickar på knappen
         if(Inmatningsvalidering.textValidering(txtLosenord)){
             try {
                   String nyttLosenord = txtLosenord.getText().trim();

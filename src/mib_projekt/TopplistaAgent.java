@@ -124,27 +124,22 @@ public class TopplistaAgent extends javax.swing.JFrame {
 
     private void fyllOmradesCBox() {
         try {
-            // SQL-fråga för att hämta Plats_ID och Benamning från plats-tabellen
             String fraga = "SELECT Omrades_ID, Benamning FROM omrade;";
-            // Utför SQL-frågan och få resultatet
             var resultat = idb.fetchRows(fraga);
 
-            // Iterera över varje rad i resultatet
+            //Itererar över varje rad i resultatet
             for (HashMap<String, String> rad : resultat) {
-                // Hämta Plats_ID och Benamning från raden
+                // Hämtar omrades_id och benamning
                 String OmradesIdStr = rad.get("Omrades_ID");
                 String OmradesNamn = rad.get("Benamning");
 
-                // Kontrollera om Plats_ID är inte null
                 if (OmradesIdStr != null) {
-                    // Konvertera Plats_ID till integer
                     omradeID = Integer.parseInt(OmradesIdStr);
-                    // Lägg till Benamning i dropdown-menyn
+                    // Lägger till omradesnamnet i cb
                     cbtnPlats.addItem(OmradesNamn);
                 }
             }
         } catch (InfException ex) {
-            // Visa felmeddelande om något går fel med databasen
             JOptionPane.showMessageDialog(null, "Något gick fel!");
             System.out.println("Internt felmeddelande" + ex.getMessage());
         }
@@ -153,10 +148,10 @@ public class TopplistaAgent extends javax.swing.JFrame {
 
     private void btnListaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListaActionPerformed
         try {
-            // Hämta det valda området från comboboxen
+            // Hämtar det valda området från comboboxen
             String selectedOmrade = (String) cbtnPlats.getSelectedItem();
 
-            // Omvandla det valda området till omradesID
+            //Omvandlar det valda området till omradesID
             omradeID = getOmradeIDFromComboBox(selectedOmrade);
 
             // SQL-fråga för att hämta topp 3 agenter baserat på det valda området
@@ -168,26 +163,24 @@ public class TopplistaAgent extends javax.swing.JFrame {
                     + "ORDER BY 2 DESC "
                     + "LIMIT 3;";
 
-            // Utför SQL-frågan och få resultatet från databasen
             ArrayList<HashMap<String, String>> resultat = idb.fetchRows(fraga);
 
-            // Skapa en modell för listan och fyll den med resultatet
+            // Skapar en modell för listan och fyller den sedan med information
             DefaultListModel<String> listModel = new DefaultListModel<>();
             for (HashMap<String, String> row : resultat) {
                 listModel.addElement("Agent: " + row.get("Namn") + ", Count: " + row.get("COUNT(*)"));
             }
 
-            // Skapa en JList med modellen
+            // Skapar en JList med modellen
             JList<String> resultList = new JList<>(listModel);
 
-            // Skapa en JScrollPane för JList om det finns många rader
+            // Skapar en JScrollPane så att man kan skrolla
             JScrollPane scrollPane = new JScrollPane(resultList);
 
-            // Visa ett popup-fönster med listan
+            //Öppnar ett nytt popupp fönster med scrollpane som innehåller listan med statistiken
             JOptionPane.showMessageDialog(null, scrollPane, "Topplista Agent", JOptionPane.INFORMATION_MESSAGE);
 
         } catch (InfException ex) {
-            // Hantera undantag om något går fel vid databasanropet
             Logger.getLogger(TopplistaAgent.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnListaActionPerformed
@@ -207,21 +200,16 @@ public class TopplistaAgent extends javax.swing.JFrame {
     }//GEN-LAST:event_btnTillbaka2ActionPerformed
 
     private int getOmradeIDFromComboBox(String selectedOmrade) {
-        // Försök hämta Omrades_ID från databasen baserat på det valda området
+        // Försök hämta Omrades_ID från databasen baserat på det valda området i cb
         try {
-            // SQL-fråga för att hämta Omrades_ID från omrade-tabellen
             String fraga = "SELECT Omrades_ID FROM omrade WHERE Benamning = '" + selectedOmrade + "';";
 
-            // Utför SQL-frågan och få resultatet
             var resultat = idb.fetchRows(fraga);
 
-            // Kontrollera om resultatet inte är tomt
             if (!resultat.isEmpty()) {
-                // Returnera Omrades_ID som en integer
                 return Integer.parseInt(resultat.get(0).get("Omrades_ID"));
             }
         } catch (InfException ex) {
-            // Hantera undantag om något går fel vid databasanropet
             JOptionPane.showMessageDialog(null, "Något gick fel vid hämtning av Omrades_ID!");
             System.out.println("Internt felmeddelande" + ex.getMessage());
         }

@@ -98,28 +98,22 @@ public class TaBortAlien extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+        //cb som hämtar alla aliens namn och deras id
        private void AlienNamnScroll(){
         try {
-            // SQL-fråga för att hämta Plats_ID och Benamning från plats-tabellen
             String fraga = "SELECT Alien_ID, Namn FROM alien;";
-            // Utför SQL-frågan och få resultatet
             var resultat = idb.fetchRows(fraga);
 
-            // Iterera över varje rad i resultatet
             for (HashMap<String, String> rad : resultat) {
-                // Hämta Plats_ID och Benamning från raden
                 String AlienIdStr = rad.get("Alien_ID");
                 String AlienNamn = rad.get("Namn");
 
-                // Kontrollera om Plats_ID är inte null
                 if (AlienIdStr != null) {
-                    // Lägg till Benamning i dropdown-menyn
+                    // Lägger till alien namnet i dropdown-menyn
                     cbtnAlienNamn.addItem(AlienNamn);
                 }
             }
         } catch (InfException ex) {
-            // Visa felmeddelande om något går fel med databasen
             JOptionPane.showMessageDialog(null, "Något gick fel!");
             System.out.println("Internt felmeddelande" + ex.getMessage());
         }

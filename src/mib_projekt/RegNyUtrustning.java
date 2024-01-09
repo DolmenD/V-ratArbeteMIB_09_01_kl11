@@ -23,7 +23,7 @@ public class RegNyUtrustning extends javax.swing.JFrame {
     public RegNyUtrustning() {
         initComponents();
 
-        // Försök att skapa en anslutning till databasen
+        // Försöker att skapa en anslutning till databasen
         try {
             idb = new InfDB("mibdb", "3306", "mibdba", "mibkey");
             System.out.println("Databasanslutning lyckades");
@@ -37,7 +37,7 @@ public class RegNyUtrustning extends javax.swing.JFrame {
     public RegNyUtrustning(String Tidigare) {
         initComponents();
         this.Tidigare = Tidigare;
-        // Försök att skapa en anslutning till databasen
+        // Försöker att skapa en anslutning till databasen
         try {
             idb = new InfDB("mibdb", "3306", "mibdba", "mibkey");
             System.out.println("Databasanslutning lyckades");
@@ -149,6 +149,7 @@ public class RegNyUtrustning extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    //kollar vilken utrustnings typ som är vald i cb
     private void cbtnUtrustningActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbtnUtrustningActionPerformed
         String typUtrustning = (String) cbtnUtrustning.getSelectedItem();
         if("Vapen".equals(typUtrustning)){
@@ -161,7 +162,7 @@ public class RegNyUtrustning extends javax.swing.JFrame {
             lbTypUtrustning.setText("Källa:");
         }
     }//GEN-LAST:event_cbtnUtrustningActionPerformed
-
+    //lägger in utrustningen och sen lägger in information i rätt utrustningsklass ex vapen eller teknik
     private void btnRegisteraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisteraActionPerformed
         if(Inmatningsvalidering.textValidering(txtNamn) && Inmatningsvalidering.textValidering(txtUtrustningInfo)){
             try{

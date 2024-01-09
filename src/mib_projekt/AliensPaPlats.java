@@ -159,24 +159,17 @@ public class AliensPaPlats extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_btnTillbakaActionPerformed
-    
+    //fyller cb med dem olika platsernas namn
     private void fyllcbplats(){
         try {
-            // SQL-fråga för att hämta Plats_ID och Benamning från plats-tabellen
             String fraga = "SELECT Plats_ID, Benamning FROM plats;";
-            // Utför SQL-frågan och få resultatet
             var resultat = idb.fetchRows(fraga);
 
-            // Iterera över varje rad i resultatet
             for (HashMap<String, String> rad : resultat) {
-                // Hämta Plats_ID och Benamning från raden
                 String platsIdStr = rad.get("Plats_ID");
                 String platsNamn = rad.get("Benamning");
 
-                // Kontrollera om Plats_ID är inte null
                 if (platsIdStr != null) {
-                    // Konvertera Plats_ID till integer
-                    // Lägg till Benamning i dropdown-menyn
                     cbplats.addItem(platsNamn);
                 }
             }
@@ -186,7 +179,8 @@ public class AliensPaPlats extends javax.swing.JFrame {
             System.out.println("Internt felmeddelande" + ex.getMessage());
         }
     }
-    
+    //fyller sedan den andra cb med namn med hjälp av sql frågan som
+    // tar fram dem aliens som är på platsen man valde i den andra cb
     private void fyllcbnamn(){
         try {
             String platsen = (String)cbplats.getSelectedItem();
@@ -196,19 +190,14 @@ public class AliensPaPlats extends javax.swing.JFrame {
                 + "AND Alien.Plats = Plats_ID";
             ArrayList<String> namnen = idb.fetchColumn(fraga);
 
-            // Iterera över varje rad i resultatet
             for(String alienNamn : namnen){
-                // Hämta Plats_ID och Benamning från raden
-                //String alienNamn = namnet.get("Namn");
 
-                // Kontrollera om benämning inte null
                 if (alienNamn != null) {
-                    // Lägg till namnet i combo box
+                    // Lägger till namnet i cb
                     cbVisaNamn.addItem(alienNamn);
                 }
             }
         } catch (InfException ex) {
-            // Visa felmeddelande om något går fel med databasen
             JOptionPane.showMessageDialog(null, "Något gick fel!");
             System.out.println("Internt felmeddelande" + ex.getMessage());
         }

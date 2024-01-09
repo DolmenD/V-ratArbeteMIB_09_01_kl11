@@ -199,27 +199,23 @@ public class AndraInfoAgent extends javax.swing.JFrame {
 
             // SQL-fråga för att hämta Plats_ID och Benamning från plats-tabellen
             String fraga = "SELECT Omrades_ID, Benamning FROM omrade;";
-            // Utför SQL-frågan och få resultatet
 
             cbtnOmrade.addItem(nuvarandeOmrade);
             var resultat = idb.fetchRows(fraga);
 
-            // Iterera över varje rad i resultatet
             for (HashMap<String, String> rad : resultat) {
-                // Hämta Plats_ID och Benamning från raden
                 String OmradesIdStr = rad.get("Omrades_ID");
                 String OmradesNamn = rad.get("Benamning");
 
-                // Kontrollera om Plats_ID är inte null
                 if (OmradesIdStr != null) {
-                    // Konvertera Plats_ID till integer
+                    // Konvertera OmradesId till integer
                     omradeID = Integer.parseInt(OmradesIdStr);
-                    // Lägg till Benamning i dropdown-menyn
+                    //Lägger till omradesnamnet i cb
                     cbtnOmrade.addItem(OmradesNamn);
                 }
             }
         } catch (InfException ex) {
-            // Visa felmeddelande om något går fel med databasen
+            // Visar felmeddelande ifall något går fel
             JOptionPane.showMessageDialog(null, "Något gick fel!");
             System.out.println("Internt felmeddelande" + ex.getMessage());
         }
@@ -240,14 +236,13 @@ public class AndraInfoAgent extends javax.swing.JFrame {
         }
        
     } catch (Exception ex) {
-        // Hantera exception om något går fel vid hämtning av adminstatus
         JOptionPane.showMessageDialog(null, "Något gick fel!");
         System.out.println("Internt felmeddelande" + ex.getMessage());
     }
 }
 
     private void setTextFields() {
-
+        //fyller dem befintliga textfälten med befintlig information
         try {
             String namnFraga = "SELECT Namn FROM AGENT WHERE AGENT_ID = '" + AgentID + "'";
             String svarNamn = idb.fetchSingle(namnFraga);
@@ -318,14 +313,14 @@ public class AndraInfoAgent extends javax.swing.JFrame {
                 String telefon = txtTelefon.getText();
                 String Namn = txtNamn.getText();
                 String adminstatus;
-                
+                //Gör så att man kan ändra admin status
                 String admin = cbtnAdmin.getSelectedItem().toString();
                 if (admin.equals("Ja")) {
                     adminstatus = "J";
                 } else {
                     adminstatus = "N";
                 }
-                //sql fråga som uppdaterar agenten
+                //sql fråga som uppdaterar agentens information
                 String andraAgentFraga = "UPDATE AGENT SET Losenord ='"+losenord+ "', Telefon ='"+telefon+"', Namn ='"+ Namn+"', Omrade = '" + omradeID + "', Administrator = '"+adminstatus+"' WHERE AGENT_ID = '" + AgentID + "';";
                 idb.update(andraAgentFraga);
                 jLAndrat.setText("Agentens info är ändrat");

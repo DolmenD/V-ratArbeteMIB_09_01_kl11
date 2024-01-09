@@ -29,6 +29,8 @@ public class InfoAllAlien extends javax.swing.JFrame {
         this.idb = idb;
         fyllAlienNamn();
     }
+    //Tidigare används för att man ska veta ifall man kom ifrån admin eller agent så man blir tillbaka
+    //skickad rätt när man klickar på Tillbaka
     public InfoAllAlien(InfDB idb, String Tidigare) {
         initComponents();
         this.idb = idb;

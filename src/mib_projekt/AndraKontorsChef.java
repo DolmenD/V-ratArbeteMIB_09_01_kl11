@@ -111,18 +111,17 @@ public class AndraKontorsChef extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    //När man klickar på knappen ändrar den kontorschefen
     private void jbBekraftaAndringActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBekraftaAndringActionPerformed
 
         String valtAgentNamn = (String) cbtnAgentNamn.getSelectedItem();
-        //Klicka på knapp bekfräta ändring
         try {
             
             String fraga = "SELECT Agent_ID FROM Agent WHERE Namn = '" + valtAgentNamn + "'";
-            // Utför SQL-frågan och få resultatet
             var resultat = idb.fetchSingle(fraga);
 
             if (resultat != null) {
-                // Konvertera resultatet till integer och lagra det i valtAlienID
+                // Konverterar resultatet till integer och lagrar det i valtAlienID
                 valtAgentID = Integer.parseInt(resultat);
             }
 
@@ -134,10 +133,11 @@ public class AndraKontorsChef extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Agenten du valt är den nuvarande kontorschefen");
 
             }else{
-            String agentNamn = idb.fetchSingle("SELECT Namn FROM agent WHERE agent_ID = " + valtAgentID);
-            idb.update("UPDATE kontorschef SET agent_ID =" + valtAgentID);
-            System.out.println("Kontorschefen är nu ändrad till " + agentNamn);
-            JOptionPane.showMessageDialog(null, "Ny kontorschef registrerad: " + agentNamn);
+                //Byter ut kontorschefen och sedan öppnar ett popupp som confirmar det
+                String agentNamn = idb.fetchSingle("SELECT Namn FROM agent WHERE agent_ID = " + valtAgentID);
+                idb.update("UPDATE kontorschef SET agent_ID =" + valtAgentID);
+                System.out.println("Kontorschefen är nu ändrad till " + agentNamn);
+                JOptionPane.showMessageDialog(null, "Ny kontorschef registrerad: " + agentNamn);
             }
 
         } catch (InfException e) {
@@ -153,24 +153,17 @@ public class AndraKontorsChef extends javax.swing.JFrame {
         AndraKontorsChef.this.setVisible(false);
         nytt.setVisible(true);
     }//GEN-LAST:event_btnTillbaka3ActionPerformed
-
+    //fyller cb box med namn som ska bli den nya kontorschefen
     private void fyllCbtnAgentNamn() {
         try {
-            // SQL-fråga för att hämta Plats_ID och Benamning från plats-tabellen
             String fraga = "SELECT Agent_ID, Namn FROM Agent;";
-            // Utför SQL-frågan och få resultatet
             var resultat = idb.fetchRows(fraga);
 
-            // Iterera över varje rad i resultatet
             for (HashMap<String, String> rad : resultat) {
-                // Hämta Plats_ID och Benamning från raden
                 String AgentIdStr = rad.get("Agent_ID");
                 String AgentNamn = rad.get("Namn");
 
-                // Kontrollera om Plats_ID är inte null
                 if (AgentIdStr != null) {
-                    // Konvertera Plats_ID till integer
-                    // Lägg till Benamning i dropdown-menyn
                     cbtnAgentNamn.addItem(AgentNamn);
                 }
             }

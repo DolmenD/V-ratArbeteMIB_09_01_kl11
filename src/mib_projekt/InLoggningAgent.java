@@ -139,14 +139,12 @@ public class InLoggningAgent extends javax.swing.JFrame {
                 String fraga = "SELECT EPOST, LOSENORD FROM AGENT WHERE EPOST = '" + epost + "' AND LOSENORD = '" + losenord + "'";
 
                 String svar = idb.fetchSingle(fraga);
-                // Kontrollera om resultatet är tomt eller null
+                // Kontrollerar så att resultatet inte är null eller är tomt
                 if (svar != null && !svar.isEmpty()) {
-                    // Uppdatera användargränssnittet eller gör något med resultatet
                     EfterInlogg nytt = new EfterInlogg(txtEpost.getText());
                     InLoggningAgent.this.setVisible(false);
                     nytt.setVisible(true);
                 } else {
-                    // Uppdatera användargränssnittet eller gör något annat om inloggningen misslyckades
                     lbValkommen.setText("Inloggning misslyckades. Kontrollera e-post och lösenord.");
                 }
 

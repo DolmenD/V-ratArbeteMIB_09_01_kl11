@@ -146,7 +146,7 @@ public class EfterInloggningAlien extends javax.swing.JFrame {
     private void jbOmradeschefActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbOmradeschefActionPerformed
 
         try{
-            //SQL fråga som hämtar namn epost och telefon som är den ansvarige områdeschefen
+            //SQL fråga som hämtar namn epost och telefon för den ansvarige områdeschefen
             System.out.println("Bra");
             String fraga = "SELECT Agent.Namn, Agent.Epost, Agent.Telefon "
                     + "FROM Alien, Plats, Omradeschef, Agent "

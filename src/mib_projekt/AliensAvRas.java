@@ -141,19 +141,14 @@ public class AliensAvRas extends javax.swing.JFrame {
             
             ArrayList<String> namnen = idb.fetchColumn(fraga);
 
-            // Iterera över varje rad i resultatet
+            // Itererar över varje rad i resultatet
             for(String alienNamn : namnen){
-                // Hämta Plats_ID och Benamning från raden
-                //String alienNamn = namnet.get("Namn");
-
-                // Kontrollera om benämning inte null
                 if (alienNamn != null) {
-                    // Lägg till namnet i combo box
+                    // Lägg till namnet i combo boxen
                     cbAliens.addItem(alienNamn);
                 }
             }
         } catch (InfException ex) {
-            // Visa felmeddelande om något går fel med databasen
             JOptionPane.showMessageDialog(null, "Något gick fel!");
             System.out.println("Internt felmeddelande" + ex.getMessage());
         }

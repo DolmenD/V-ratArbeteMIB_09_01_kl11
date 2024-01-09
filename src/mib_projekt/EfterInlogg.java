@@ -306,41 +306,35 @@ public class EfterInlogg extends javax.swing.JFrame {
     private void btnAndraLosenordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAndraLosenordActionPerformed
         if(Inmatningsvalidering.textValidering(txtNyttLosenord)){
             try {
-                // Hämta det nya lösenordet från textfältet
+                // Hämtar det nya lösenordet från textfältet
                 String nyttLosenord = txtNyttLosenord.getText();
 
                 // Kontrollera om det nya lösenordet är 6 tecken eller kortare
+                //då det inte får vara längre än 6 texken
                 if (nyttLosenord.length() <= 6) {
-                    // Skapa SQL-frågan för att uppdatera lösenordet i databasen
                     String fraga = "UPDATE agent SET losenord ='" + nyttLosenord + "' WHERE epost = '" + epost + "'";
 
-                    // Utför uppdateringen i databasen
                     idb.update(fraga);
 
-                    // Uppdatera användargränssnittet med bekräftelsemeddelande
                     lbValkommen.setText("Lösenord är ändrat!");
                 } else {
-                    // Visa felmeddelande om lösenordet är för långt
+                    //meddelar användaren ifall lösenordet är för långt
                     JOptionPane.showMessageDialog(null, "För långt lösenord!");
                 }
             } catch (InfException ex) {
-                // Visa felmeddelande om det uppstår ett internt fel
                 JOptionPane.showMessageDialog(null, "Något gick fel!");
                 System.out.println("Internt felmeddelande" + ex.getMessage());
             }
         }
     }//GEN-LAST:event_btnAndraLosenordActionPerformed
-
+    //hämtar alien id med
     private int getAlienID(String epost, String losenord) {
         int agentID = -1;
         try {
-            // Skapa SQL-frågan för att hämta Agent_ID baserat på e-post och lösenord
             String fraga = "SELECT Agent_ID FROM agent WHERE epost = '" + epost + "'";
 
-            // Utför frågan och hämta resultatet
             String svar = idb.fetchSingle(fraga);
 
-            // Konvertera svar till int och sätt värdet för agentID
             if (svar != null && !svar.isEmpty()) {
                 agentID = Integer.parseInt(svar);
             }

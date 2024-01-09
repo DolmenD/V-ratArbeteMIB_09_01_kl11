@@ -131,10 +131,10 @@ public class InLoggningAdmin extends javax.swing.JFrame {
                 char[] losenorChar = lsnLosenord.getPassword();
                 String losenord = new String(losenorChar);
 
-                // Formatera strängarna korrekt i SQL-frågan
+                //Kollar om användaren finns samt kollar om den är admin om allt är bra skickar den en vidare till efterInloggAdmin
                 String fraga = "SELECT EPOST, LOSENORD FROM AGENT WHERE EPOST = '" + epost + "' AND LOSENORD = '" + losenord + "'";
                 String fragaAdmin = "SELECT administrator FROM Agent WHERE epost = '" + epost + "';";
-                // Utför frågan och hämta resultatet
+                //Frågar databasen
                 String svar = idb.fetchSingle(fraga);
                 String svarAdmin = idb.fetchSingle(fragaAdmin);
                 if ("N".equals(svarAdmin)){
@@ -143,12 +143,10 @@ public class InLoggningAdmin extends javax.swing.JFrame {
                 else{
                 // Kontrollera om resultatet är tomt eller null
                 if (svar != null && !svar.isEmpty()) {
-                    // Uppdatera användargränssnittet eller gör något med resultatet
                     EfterInloggAdmin nytt = new EfterInloggAdmin(epost);
                     InLoggningAdmin.this.setVisible(false);
                     nytt.setVisible(true);
                 } else {
-                    // Uppdatera användargränssnittet eller gör något annat om inloggningen misslyckades
                     lbValkommen.setText("Inloggning misslyckades. Kontrollera e-post och lösenord.");
                 }
                 }

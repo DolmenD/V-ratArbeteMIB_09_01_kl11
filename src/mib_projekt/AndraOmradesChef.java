@@ -120,18 +120,16 @@ public class AndraOmradesChef extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbGodkanAndringActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGodkanAndringActionPerformed
-        // Andra omdrådeschef 
+        //ändrar omradeschef
         String valtAgentNamn = (String) cbtnAgentNamn.getSelectedItem();
 
         try {
 
             String omrade = ValjOmradeCBox.getSelectedItem().toString();
             String fraga = "SELECT Agent_ID FROM Agent WHERE Namn = '" + valtAgentNamn + "'";
-            // Utför SQL-frågan och få resultatet
             var resultat = idb.fetchSingle(fraga);
 
             if (resultat != null) {
-                // Konvertera resultatet till integer och lagra det i valtAlienID
                 valtAgentID = Integer.parseInt(resultat);
             }
 
@@ -147,34 +145,26 @@ public class AndraOmradesChef extends javax.swing.JFrame {
 
                 // Uppdaterar den nya områdeschefen
                 idb.update("UPDATE omradeschef SET agent_ID = " +  valtAgentID + ", omrade = " + "'" + omradesID + "'" + "WHERE omrade = '" + omradesID + "'");
-                // Meddalar användaren att ändringen är lyckad
+                // Meddalar användaren att ändringen är gjord
                 JOptionPane.showMessageDialog(null, "Områdeschefen har nu lyckats ändrats");
                 }
         } catch (InfException e) {
-            //Om något annat fel visas detta.
             JOptionPane.showMessageDialog(null, "Något gick fel!");
             System.out.println("Internt felmeddelande" + e.getMessage());
         }
 
     }//GEN-LAST:event_jbGodkanAndringActionPerformed
-
+    //fyller cb med namn på andra agenter där man sedan väljer den man vill ska bli nya omradeschefen
     private void fyllCbtnAgentNamn() {
         try {
-            // SQL-fråga för att hämta Plats_ID och Benamning från plats-tabellen
             String fraga = "SELECT Agent_ID, Namn FROM Agent;";
-            // Utför SQL-frågan och få resultatet
             var resultat = idb.fetchRows(fraga);
 
-            // Iterera över varje rad i resultatet
             for (HashMap<String, String> rad : resultat) {
-                // Hämta Plats_ID och Benamning från raden
                 String AgentIdStr = rad.get("Agent_ID");
                 String AgentNamn = rad.get("Namn");
 
-                // Kontrollera om Plats_ID är inte null
                 if (AgentIdStr != null) {
-                    // Konvertera Plats_ID till integer
-                    // Lägg till Benamning i dropdown-menyn
                     cbtnAgentNamn.addItem(AgentNamn);
                 }
             }
