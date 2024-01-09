@@ -133,9 +133,14 @@ public class InLoggningAdmin extends javax.swing.JFrame {
 
                 // Formatera strängarna korrekt i SQL-frågan
                 String fraga = "SELECT EPOST, LOSENORD FROM AGENT WHERE EPOST = '" + epost + "' AND LOSENORD = '" + losenord + "'";
-
+                String fragaAdmin = "SELECT administrator FROM Agent WHERE epost = '" + epost + "';";
                 // Utför frågan och hämta resultatet
                 String svar = idb.fetchSingle(fraga);
+                String svarAdmin = idb.fetchSingle(fragaAdmin);
+                if ("N".equals(svarAdmin)){
+                     JOptionPane.showMessageDialog(null, "Ingen Adminstatus!");
+                }
+                else{
                 // Kontrollera om resultatet är tomt eller null
                 if (svar != null && !svar.isEmpty()) {
                     // Uppdatera användargränssnittet eller gör något med resultatet
@@ -146,7 +151,7 @@ public class InLoggningAdmin extends javax.swing.JFrame {
                     // Uppdatera användargränssnittet eller gör något annat om inloggningen misslyckades
                     lbValkommen.setText("Inloggning misslyckades. Kontrollera e-post och lösenord.");
                 }
-
+                }
             } catch (InfException e) {
                 JOptionPane.showMessageDialog(null, "Något gick fel!");
                 System.out.println("Internt felmeddelande" + e.getMessage());

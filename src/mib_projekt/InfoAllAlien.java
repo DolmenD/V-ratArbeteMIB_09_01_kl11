@@ -21,12 +21,19 @@ import oru.inf.InfException;
 public class InfoAllAlien extends javax.swing.JFrame {
     private InfDB idb;
     private int valtAlienID;
+    private String Tidigare;
     /**
      * Creates new form InfoAllAlien
      */
     public InfoAllAlien(InfDB idb) {
         initComponents();
         this.idb = idb;
+        fyllAlienNamn();
+    }
+    public InfoAllAlien(InfDB idb, String Tidigare) {
+        initComponents();
+        this.idb = idb;
+        this.Tidigare = Tidigare;
         fyllAlienNamn();
     }
 
@@ -46,6 +53,7 @@ public class InfoAllAlien extends javax.swing.JFrame {
         btnBekraftaSokning = new javax.swing.JButton();
         lblFelmeddelande = new javax.swing.JLabel();
         cbtnAlienNamn = new javax.swing.JComboBox<>();
+        btnTillbaka = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -67,6 +75,13 @@ public class InfoAllAlien extends javax.swing.JFrame {
             }
         });
 
+        btnTillbaka.setText("Tillbaka");
+        btnTillbaka.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTillbakaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -82,7 +97,10 @@ public class InfoAllAlien extends javax.swing.JFrame {
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(jlSokAlien)
                                 .addComponent(jlSokMedAlienID)
-                                .addComponent(lblFelmeddelande, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(btnTillbaka)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(lblFelmeddelande, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                             .addComponent(cbtnAlienNamn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -102,8 +120,14 @@ public class InfoAllAlien extends javax.swing.JFrame {
                         .addComponent(cbtnAlienNamn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnBekraftaSokning)
-                        .addGap(18, 18, 18)
-                        .addComponent(lblFelmeddelande))))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(lblFelmeddelande))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addComponent(btnTillbaka)))))
+                .addContainerGap())
         );
 
         pack();
@@ -174,6 +198,20 @@ public class InfoAllAlien extends javax.swing.JFrame {
             }
     }//GEN-LAST:event_btnBekraftaSokningActionPerformed
 
+    private void btnTillbakaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTillbakaActionPerformed
+        // TODO add your handling code here:
+        if(Tidigare.equals("ADMIN")){
+            EfterInloggAdmin nytt = new EfterInloggAdmin();
+            InfoAllAlien.this.setVisible(false);
+            nytt.setVisible(true);
+        }
+        else{
+            EfterInlogg nytt = new EfterInlogg();
+            InfoAllAlien.this.setVisible(false);
+            nytt.setVisible(true);
+        }
+    }//GEN-LAST:event_btnTillbakaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -215,6 +253,7 @@ public class InfoAllAlien extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JList<String> ListAllInformationAlien;
     private javax.swing.JButton btnBekraftaSokning;
+    private javax.swing.JButton btnTillbaka;
     private javax.swing.JComboBox<String> cbtnAlienNamn;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel jlSokAlien;

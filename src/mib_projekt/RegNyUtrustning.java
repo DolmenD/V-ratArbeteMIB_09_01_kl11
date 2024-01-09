@@ -193,6 +193,8 @@ public class RegNyUtrustning extends javax.swing.JFrame {
                            + "('" + utrustningsID + "', '" + infoUtrustning + "')";
                   idb.insert(fragaTeknik);
               }
+              JOptionPane.showMessageDialog(null, "Utrustning registrerad");
+              
 
 
 

@@ -230,8 +230,8 @@ public class RegNyAlien extends javax.swing.JFrame {
 
                 // Bygg upp SQL-frågan för att registrera alien i databasen
                 String fragaRegistreraAlien = "INSERT INTO alien (Epost, Losenord, Alien_ID, Telefon, Plats, Namn, Registreringsdatum, Ansvarig_Agent) VALUES "
-                        + "('" + epost + "', '" + losenord + "', '" + alienID + "', '" + telefon + "', '" + platsID + "', '" + Namn + "', CURDATE(),'" + agentID + "');";
-
+                        + "('" + epost + "', '" + losenord + "', " + alienID + ", '" + telefon + "', '" + platsID + "', '" + Namn + "', CURDATE(), " + agentID + ");";
+                
                 // Utför SQL-frågan för att registrera alien
                 idb.insert(fragaRegistreraAlien);
 
@@ -239,6 +239,16 @@ public class RegNyAlien extends javax.swing.JFrame {
                 int InfoRas1 = Integer.parseInt(InfoRas);
 
                 String rasTable = (String) cbtnRas.getSelectedItem();
+                //ändrar namn på columnName så att det blir rätt längd, armar eller rätt boogies i rätt tabell
+                if ("Squid".equals(rasTable)){
+                    columnName = "Antal_Armar";
+                }else if("Worm".equals(rasTable)){
+                    columnName = "Langd";
+                }
+                else{
+                    columnName = "Antal_Boogies";
+                }
+                
                 String fragaRasAlien = "INSERT INTO " + rasTable + " (Alien_ID, " + columnName + ") VALUES (" + alienID + "," + InfoRas1 + ");";
                 // Utför SQL-frågan för att registrera alien
                 idb.insert(fragaRasAlien);

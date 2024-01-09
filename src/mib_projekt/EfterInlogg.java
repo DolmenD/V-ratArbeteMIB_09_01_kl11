@@ -171,6 +171,11 @@ public class EfterInlogg extends javax.swing.JFrame {
         lbAndraLosenord2.setText("Ändra Alieninformation");
 
         jButton2.setText("Info om alien");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         btnTopplista.setText("Topplista område");
         btnTopplista.addActionListener(new java.awt.event.ActionListener() {
@@ -436,6 +441,13 @@ public class EfterInlogg extends javax.swing.JFrame {
         EfterInlogg.this.setVisible(false);
         nytt.setVisible(true);
     }//GEN-LAST:event_btnTopplistaActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        InfoAllAlien nytt = new InfoAllAlien(idb,Tidigare);
+        EfterInlogg.this.setVisible(false);
+        nytt.setVisible(true);
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
