@@ -200,46 +200,56 @@ public class RegNyAlien extends javax.swing.JFrame {
 
     private void btnRegActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegActionPerformed
         // TODO add your handling 
-        try {
-            // Hämta värden från användarinmatning
-            String epost = txtEpost.getText();
-            String losenord = txtLosenord.getText();
-            String telefon = txtTelefon.getText();
-            String Namn = txtNamn.getText();
+        if(Inmatningsvalidering.emailValidering(txtEpost) && Inmatningsvalidering.textValidering(txtLosenord) && Inmatningsvalidering.textValidering(txtNamn) && Inmatningsvalidering.telefonValidering(txtTelefon)){
+            try {
+                // Hämta värden från användarinmatning
+                String epost = txtEpost.getText();
+                String losenord = txtLosenord.getText();
+                String telefon = txtTelefon.getText();
+                String Namn = txtNamn.getText();
 
-            // Hämta valt platsnamn från dropdown-menyn
-            String valtPlatsNamn = cbtnPlats.getSelectedItem().toString();
+                //kollar så att eposten inte redan används
+                String kollaEpost = "SELECT epost FROM Alien WHERE epost = '" + epost + "'";
+                String svarKollaEpost = idb.fetchSingle(kollaEpost);
 
-            // Hämta plats ID baserat på platsnamnet
-            String fragaPlatsID = "SELECT Plats_ID FROM plats WHERE Benamning = '" + valtPlatsNamn + "';";
-            String platsID = idb.fetchSingle(fragaPlatsID);
+                if (svarKollaEpost != null){
+                         JOptionPane.showMessageDialog(null, "Eposten används redan! Vänligen skriv en ny!");
+                    }else{
 
-            // Skapa nytt AlienID
-            String fragaAlienID = "SELECT COALESCE(MAX(Alien_ID), 0) + 1 AS NextAlienID FROM Alien";
-            String alienIDResult = idb.fetchSingle(fragaAlienID);
-            int alienID = (alienIDResult != null) ? Integer.parseInt(alienIDResult) : 1;
+                // Hämta valt platsnamn från dropdown-menyn
+                String valtPlatsNamn = cbtnPlats.getSelectedItem().toString();
 
-            // Bygg upp SQL-frågan för att registrera alien i databasen
-            String fragaRegistreraAlien = "INSERT INTO alien (Epost, Losenord, Alien_ID, Telefon, Plats, Namn, Registreringsdatum, Ansvarig_Agent) VALUES "
-                    + "('" + epost + "', '" + losenord + "', '" + alienID + "', '" + telefon + "', '" + platsID + "', '" + Namn + "', CURDATE(),'" + agentID + "');";
+                // Hämta plats ID baserat på platsnamnet
+                String fragaPlatsID = "SELECT Plats_ID FROM plats WHERE Benamning = '" + valtPlatsNamn + "';";
+                String platsID = idb.fetchSingle(fragaPlatsID);
 
-            // Utför SQL-frågan för att registrera alien
-            idb.insert(fragaRegistreraAlien);
+                // Skapa nytt AlienID
+                String fragaAlienID = "SELECT COALESCE(MAX(Alien_ID), 0) + 1 AS NextAlienID FROM Alien";
+                String alienIDResult = idb.fetchSingle(fragaAlienID);
+                int alienID = (alienIDResult != null) ? Integer.parseInt(alienIDResult) : 1;
 
-            String InfoRas = txtInfoRas.getText();
-            int InfoRas1 = Integer.parseInt(InfoRas);
+                // Bygg upp SQL-frågan för att registrera alien i databasen
+                String fragaRegistreraAlien = "INSERT INTO alien (Epost, Losenord, Alien_ID, Telefon, Plats, Namn, Registreringsdatum, Ansvarig_Agent) VALUES "
+                        + "('" + epost + "', '" + losenord + "', '" + alienID + "', '" + telefon + "', '" + platsID + "', '" + Namn + "', CURDATE(),'" + agentID + "');";
 
-            String rasTable = (String) cbtnRas.getSelectedItem();
-            String fragaRasAlien = "INSERT INTO " + rasTable + " (Alien_ID, " + columnName + ") VALUES (" + alienID + "," + InfoRas1 + ");";
-            // Utför SQL-frågan för att registrera alien
-            idb.insert(fragaRasAlien);
-            // Visa meddelande om registreringen lyckades
-            JOptionPane.showMessageDialog(null, "Alien registrerad!");
+                // Utför SQL-frågan för att registrera alien
+                idb.insert(fragaRegistreraAlien);
 
-        } catch (InfException ex) {
-            // Visa felmeddelande om något går fel med databasen
-            JOptionPane.showMessageDialog(null, "Något gick fel!");
-            System.out.println("Internt felmeddelande" + ex.getMessage());
+                String InfoRas = txtInfoRas.getText();
+                int InfoRas1 = Integer.parseInt(InfoRas);
+
+                String rasTable = (String) cbtnRas.getSelectedItem();
+                String fragaRasAlien = "INSERT INTO " + rasTable + " (Alien_ID, " + columnName + ") VALUES (" + alienID + "," + InfoRas1 + ");";
+                // Utför SQL-frågan för att registrera alien
+                idb.insert(fragaRasAlien);
+                // Visa meddelande om registreringen lyckades
+                JOptionPane.showMessageDialog(null, "Alien registrerad!");
+
+            }} catch (InfException ex) {
+                // Visa felmeddelande om något går fel med databasen
+                JOptionPane.showMessageDialog(null, "Något gick fel!");
+                System.out.println("Internt felmeddelande" + ex.getMessage());
+            }
         }
 
     }//GEN-LAST:event_btnRegActionPerformed

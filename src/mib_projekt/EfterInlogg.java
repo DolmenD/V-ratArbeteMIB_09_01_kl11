@@ -256,29 +256,30 @@ public class EfterInlogg extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAndraLosenordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAndraLosenordActionPerformed
+        if(Inmatningsvalidering.textValidering(txtNyttLosenord)){
+            try {
+                // Hämta det nya lösenordet från textfältet
+                String nyttLosenord = txtNyttLosenord.getText();
 
-        try {
-            // Hämta det nya lösenordet från textfältet
-            String nyttLosenord = txtNyttLosenord.getText();
+                // Kontrollera om det nya lösenordet är 6 tecken eller kortare
+                if (nyttLosenord.length() <= 6) {
+                    // Skapa SQL-frågan för att uppdatera lösenordet i databasen
+                    String fraga = "UPDATE agent SET losenord ='" + nyttLosenord + "' WHERE epost = '" + epost + "'";
 
-            // Kontrollera om det nya lösenordet är 6 tecken eller kortare
-            if (nyttLosenord.length() <= 6) {
-                // Skapa SQL-frågan för att uppdatera lösenordet i databasen
-                String fraga = "UPDATE agent SET losenord ='" + nyttLosenord + "' WHERE epost = '" + epost + "'";
+                    // Utför uppdateringen i databasen
+                    idb.update(fraga);
 
-                // Utför uppdateringen i databasen
-                idb.update(fraga);
-
-                // Uppdatera användargränssnittet med bekräftelsemeddelande
-                lbValkommen.setText("Lösenord är ändrat!");
-            } else {
-                // Visa felmeddelande om lösenordet är för långt
-                JOptionPane.showMessageDialog(null, "För långt lösenord!");
+                    // Uppdatera användargränssnittet med bekräftelsemeddelande
+                    lbValkommen.setText("Lösenord är ändrat!");
+                } else {
+                    // Visa felmeddelande om lösenordet är för långt
+                    JOptionPane.showMessageDialog(null, "För långt lösenord!");
+                }
+            } catch (InfException ex) {
+                // Visa felmeddelande om det uppstår ett internt fel
+                JOptionPane.showMessageDialog(null, "Något gick fel!");
+                System.out.println("Internt felmeddelande" + ex.getMessage());
             }
-        } catch (InfException ex) {
-            // Visa felmeddelande om det uppstår ett internt fel
-            JOptionPane.showMessageDialog(null, "Något gick fel!");
-            System.out.println("Internt felmeddelande" + ex.getMessage());
         }
     }//GEN-LAST:event_btnAndraLosenordActionPerformed
 

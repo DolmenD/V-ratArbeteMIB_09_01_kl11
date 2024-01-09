@@ -119,24 +119,26 @@ public class BytaLosenord extends javax.swing.JFrame {
     }//GEN-LAST:event_txtLosenordActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        try {
-              String nyttLosenord = txtLosenord.getText().trim();
-              if (nyttLosenord.length() <= 6){
-                String fraga = "UPDATE alien SET losenord ='" + nyttLosenord + "' WHERE epost = '" + eposten + "'";
-                idb.update(fraga);
-                lbConfirm.setText("Lösenord är ändrat!");
-              }
-              else{
-                  JOptionPane.showMessageDialog(null, "För långt lösenord!");
-              }
-            } 
-           catch (InfException ex) 
-           {
-              JOptionPane.showMessageDialog(null, "Något gick fel!");
-              System.out.println("Internt felmeddelande" + ex.getMessage());
+        //ändrar på lösenordet i databasen
+        if(Inmatningsvalidering.textValidering(txtLosenord)){
+            try {
+                  String nyttLosenord = txtLosenord.getText().trim();
+                  if (nyttLosenord.length() <= 6){
+                    String fraga = "UPDATE alien SET losenord ='" + nyttLosenord + "' WHERE epost = '" + eposten + "'";
+                    idb.update(fraga);
+                    lbConfirm.setText("Lösenord är ändrat!");
+                  }
+                  else{
+                      JOptionPane.showMessageDialog(null, "För långt lösenord!");
+                  }
+                } 
+               catch (InfException ex) 
+               {
+                  JOptionPane.showMessageDialog(null, "Något gick fel!");
+                  System.out.println("Internt felmeddelande" + ex.getMessage());
 
-           }
+               }
+            }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void btnTillbaka2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTillbaka2ActionPerformed

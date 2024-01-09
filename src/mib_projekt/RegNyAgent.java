@@ -163,40 +163,51 @@ public class RegNyAgent extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRegisteraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisteraActionPerformed
-        try {
-            // TODO add your handling code here:
-            String epost = txtEpost.getText();
-            String losenord = txtLosenord.getText();
-            String telefon = txtTelefon.getText();
-            String Namn = txtNamn.getText();
-            String adminstatus;
+        
+            if(Inmatningsvalidering.emailValidering(txtEpost) && Inmatningsvalidering.textValidering(txtLosenord) && Inmatningsvalidering.textValidering(txtNamn) && Inmatningsvalidering.telefonValidering(txtTelefon)){
+                try {
+                // TODO add your handling code here:
+                String epost = txtEpost.getText();
+                String losenord = txtLosenord.getText();
+                String telefon = txtTelefon.getText();
+                String Namn = txtNamn.getText();
+                String adminstatus;
 
-            String admin = cbtnAdmin.getSelectedItem().toString();
-            if (admin.equals("Ja")) {
-                adminstatus = "J";
-            } else {
-                adminstatus = "N";
+                String kollaEpost = "SELECT epost FROM Agent WHERE epost = '" + epost + "'";
+                String svarKollaEpost = idb.fetchSingle(kollaEpost);
+
+                if (svarKollaEpost != null){
+                     JOptionPane.showMessageDialog(null, "Eposten används redan! Vänligen skriv en ny!");
+                }else{
+
+                String admin = cbtnAdmin.getSelectedItem().toString();
+                if (admin.equals("Ja")) {
+                    adminstatus = "J";
+                } else {
+                    adminstatus = "N";
+                }
+
+                String valtOmradesNamn = cbtnOmrade.getSelectedItem().toString();
+
+                String fragaOmradesID = "SELECT Omrades_ID FROM omrade WHERE Benamning = '" + valtOmradesNamn + "';";
+                String omradesID = idb.fetchSingle(fragaOmradesID);
+
+                String fragaAgentID = "SELECT COALESCE(MAX(Agent_ID), 0) + 1 AS NextAgentID FROM Agent";
+                String resultatAgentID = idb.fetchSingle(fragaAgentID);
+                int agentID = (resultatAgentID != null) ? Integer.parseInt(resultatAgentID) : 1;
+
+                String regAgent = "INSERT INTO Agent (Epost, Losenord, Agent_ID, Telefon, Namn, Anstallningsdatum, Omrade, Administrator ) VALUES "
+                        + "('" + epost + "', '" + losenord + "', '" + agentID + "', '" + telefon + "', '" + Namn + "', CURDATE(),'" + omradesID + "', '" + adminstatus + "');";
+                idb.insert(regAgent);  
+
+                JOptionPane.showMessageDialog(null, "Agent registrerad!");
+                }
+
+
+            } catch (InfException ex) {
+                 JOptionPane.showMessageDialog(null, "Något gick fel!");
+                 System.out.println("Internt felmeddelande" + ex.getMessage());
             }
-
-            String valtOmradesNamn = cbtnOmrade.getSelectedItem().toString();
-
-            String fragaOmradesID = "SELECT Omrades_ID FROM omrade WHERE Benamning = '" + valtOmradesNamn + "';";
-            String omradesID = idb.fetchSingle(fragaOmradesID);
-
-            String fragaAgentID = "SELECT COALESCE(MAX(Agent_ID), 0) + 1 AS NextAgentID FROM Agent";
-            String resultatAgentID = idb.fetchSingle(fragaAgentID);
-            int agentID = (resultatAgentID != null) ? Integer.parseInt(resultatAgentID) : 1;
-
-            String regAgent = "INSERT INTO Agent (Epost, Losenord, Agent_ID, Telefon, Namn, Anstallningsdatum, Omrade, Administrator ) VALUES "
-                    + "('" + epost + "', '" + losenord + "', '" + agentID + "', '" + telefon + "', '" + Namn + "', CURDATE(),'" + omradesID + "', '" + adminstatus + "');";
-            idb.insert(regAgent);  
-            
-            JOptionPane.showMessageDialog(null, "Alien registrerad!");
-
-            
-        } catch (InfException ex) {
-             JOptionPane.showMessageDialog(null, "Något gick fel!");
-             System.out.println("Internt felmeddelande" + ex.getMessage());
         }
     }//GEN-LAST:event_btnRegisteraActionPerformed
 

@@ -61,6 +61,12 @@ public class AliensMellanDatum extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        txtFirstDate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtFirstDateActionPerformed(evt);
+            }
+        });
+
         jLabel1.setText("Från datum");
 
         jLabel2.setText("Ex: 2000-01-01");
@@ -149,8 +155,10 @@ public class AliensMellanDatum extends javax.swing.JFrame {
 
     private void jbUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbUpdateActionPerformed
         //När knappen klickas fylls den på med namnen
-        cbNamn.removeAllItems();
-        fyllcbnamn();
+        if(Inmatningsvalidering.datumValidering(txtFirstDate) && Inmatningsvalidering.datumValidering(txtSecondDate)){
+            cbNamn.removeAllItems();
+            fyllcbnamn();
+        }
     }//GEN-LAST:event_jbUpdateActionPerformed
 
     private void btnTillbakaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTillbakaActionPerformed
@@ -166,6 +174,10 @@ public class AliensMellanDatum extends javax.swing.JFrame {
             nytt.setVisible(true);
         }
     }//GEN-LAST:event_btnTillbakaActionPerformed
+
+    private void txtFirstDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFirstDateActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtFirstDateActionPerformed
     
     private void fyllcbnamn(){
         try {

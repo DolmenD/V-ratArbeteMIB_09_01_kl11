@@ -47,13 +47,8 @@
                       <Component id="jSeparator4" min="-2" pref="8" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="btnDatum" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="btnPlats" alignment="0" min="-2" pref="110" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="32767" attributes="0"/>
-                          </Group>
+                          <Component id="btnDatum" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnPlats" alignment="0" min="-2" pref="110" max="-2" attributes="0"/>
                           <Component id="lbAndraLosenord1" max="32767" attributes="0"/>
                           <Group type="102" attributes="0">
                               <Component id="btnRas" min="-2" pref="110" max="-2" attributes="0"/>

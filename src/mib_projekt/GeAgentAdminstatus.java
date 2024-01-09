@@ -14,17 +14,18 @@ import oru.inf.InfException;
  * @author David
  */
 public class GeAgentAdminstatus extends javax.swing.JFrame {
-    private InfDB idb;
 
-            
+    private InfDB idb;
+    private int AgentID;
+
     /**
      * Creates new form GeAgentAdminstatus
      */
     public GeAgentAdminstatus(InfDB idb) {
         initComponents();
         this.idb = idb;
-        fyllAgentNamn(); 
-        fyllAdminStatus();
+        this.AgentID = AgentID;
+        fyllAgentNamn();
     }
 
     /**
@@ -37,19 +38,23 @@ public class GeAgentAdminstatus extends javax.swing.JFrame {
     private void initComponents() {
 
         ComboBoxValjAgent = new javax.swing.JComboBox<>();
-        ComboBoxValjStatus = new javax.swing.JComboBox<>();
         lblValjAgent = new javax.swing.JLabel();
         lbValjStatus = new javax.swing.JLabel();
         lblAndraAdminStatus = new javax.swing.JLabel();
         btnGodkann = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         btnTillbaka2 = new javax.swing.JButton();
+        lblAgentHarStatus = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        lblValjAgent.setText("Välj Agent");
+        ComboBoxValjAgent.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ComboBoxValjAgentActionPerformed(evt);
+            }
+        });
 
-        lbValjStatus.setText("Välj vilken status du vill tilldela agenten");
+        lblValjAgent.setText("Välj Agent");
 
         lblAndraAdminStatus.setText("Ändra Administratörstatus");
 
@@ -72,29 +77,32 @@ public class GeAgentAdminstatus extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(0, 31, Short.MAX_VALUE)
-                .addComponent(lbValjStatus)
-                .addContainerGap(157, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(9, 9, 9)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(lblAndraAdminStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblValjAgent, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(ComboBoxValjAgent, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnTillbaka2)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(9, 9, 9)
+                        .addComponent(lblAndraAdminStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 163, Short.MAX_VALUE)
+                        .addComponent(btnTillbaka2))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(25, 25, 25)
+                                .addComponent(lblAgentHarStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(102, 102, 102)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btnGodkann)
+                                    .addComponent(jLabel1)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(25, 25, 25)
+                                .addComponent(lbValjStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 347, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
-                .addGap(88, 88, 88)
-                .addComponent(ComboBoxValjStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(62, 62, 62)
-                .addComponent(btnGodkann)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(102, 102, 102)
-                .addComponent(jLabel1)
+                .addGap(128, 128, 128)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lblValjAgent, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ComboBoxValjAgent, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -108,27 +116,26 @@ public class GeAgentAdminstatus extends javax.swing.JFrame {
                 .addComponent(lblValjAgent)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(ComboBoxValjAgent, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblAgentHarStatus)
                 .addGap(18, 18, 18)
                 .addComponent(lbValjStatus)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(ComboBoxValjStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
                 .addComponent(btnGodkann)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(53, 53, 53)
                 .addComponent(jLabel1)
-                .addContainerGap(107, Short.MAX_VALUE))
+                .addContainerGap(128, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-        
-    private void fyllAgentNamn(){
+
+    private void fyllAgentNamn() {
         try {
             // SQL-fråga för att hämta Plats_ID och Benamning från plats-tabellen
             String fraga = "SELECT Agent_ID, Namn FROM agent;";
             // Utför SQL-frågan och få resultatet
             var resultat = idb.fetchRows(fraga);
-
             // Iterera över varje rad i resultatet
             for (HashMap<String, String> rad : resultat) {
                 // Hämta Plats_ID och Benamning från raden
@@ -147,37 +154,37 @@ public class GeAgentAdminstatus extends javax.swing.JFrame {
             System.out.println("Internt felmeddelande" + ex.getMessage());
         }
     }
-    
-    private void fyllAdminStatus(){
-            ComboBoxValjStatus.addItem("J");
-            ComboBoxValjStatus.addItem("N");
-    }
+
 
     private void btnGodkannActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGodkannActionPerformed
-    try {
- 
-        String valdAgentNamn = ComboBoxValjAgent.getSelectedItem().toString();
+        try {
+            String valtAgentNamn = ComboBoxValjAgent.getSelectedItem().toString();
 
-        if (valdAgentNamn != null) {
-            // Hämta aktuell adminstatus för den valda agenten
-            String fraga = "SELECT Administrator FROM agent WHERE Namn = '" + valdAgentNamn + "'";
-            String aktuellAdminStatus = idb.fetchSingle(fraga);
-
-            // Byt adminstatus
-            String nyAdminStatus = "N";
-            if ("N".equals(aktuellAdminStatus)) {
-                nyAdminStatus = "J";
+            String fragaAgentID = "SELECT Agent_ID FROM agent WHERE Namn = '" + valtAgentNamn + "'";
+            String AgentensID = idb.fetchSingle(fragaAgentID);
+            String kollaAdminStatus = "Select administrator from agent where agent_ID =" + AgentensID;
+            String svarAdminStatus = idb.fetchSingle(kollaAdminStatus);
+            String nyStatus;
+            
+            if(svarAdminStatus.equals("J")){
+                nyStatus = "N";
+            }else{
+                nyStatus = "J";
+            }
+          
+            if (AgentensID != null) {
+                // Uppdatera adminstatus för den valda agenten i databasen
+                String updateFraga = "UPDATE agent SET Administrator = '" + nyStatus + "' WHERE Agent_ID = " + AgentensID;
+                idb.update(updateFraga);
             }
 
-            // Uppdatera adminstatus för den valda agenten i databasen
-            String updateFraga = "UPDATE agent SET Administrator = '" + nyAdminStatus + "' WHERE Namn = '" + valdAgentNamn + "'";
-            idb.update(updateFraga);
+// Uppdatera status i lbAgentStatus
             JOptionPane.showMessageDialog(null, "Ändring Lyckades!");
+
+        } catch (InfException e) {
+            JOptionPane.showMessageDialog(null, "Något gick fel med SQL-frågan!");
+            System.out.println("Internt felmeddelande: " + e.getMessage());
         }
-    } catch (InfException e) {
-        JOptionPane.showMessageDialog(null, "Något gick fel med SQL-frågan!");
-        System.out.println("Internt felmeddelande: " + e.getMessage());
-    }
     }//GEN-LAST:event_btnGodkannActionPerformed
 
     private void btnTillbaka2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTillbaka2ActionPerformed
@@ -186,6 +193,29 @@ public class GeAgentAdminstatus extends javax.swing.JFrame {
         GeAgentAdminstatus.this.setVisible(false);
         nytt.setVisible(true);
     }//GEN-LAST:event_btnTillbaka2ActionPerformed
+
+    private void ComboBoxValjAgentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboBoxValjAgentActionPerformed
+        String valtAgentNamn = ComboBoxValjAgent.getSelectedItem().toString();
+
+        if (valtAgentNamn != null)
+        try {
+            // Hämta aktuell adminstatus för den valda agenten
+            String fraga = "SELECT Administrator FROM agent WHERE Namn = '" + valtAgentNamn + "'";
+            var aktuellAdminStatus = idb.fetchSingle(fraga);
+
+            if ("N".equals(aktuellAdminStatus)) {
+                lbValjStatus.setText("Vill du ändra adminstatus för " + valtAgentNamn + " till adminstrator");
+
+            } else {
+                lbValjStatus.setText("Vill du ta bort adminstatus för " + valtAgentNamn);
+
+            }
+        } catch (InfException Fel) {
+            JOptionPane.showMessageDialog(null, "Något gick fel!");
+            System.out.println("Internt felmeddelande: " + Fel.getMessage());
+        }
+
+    }//GEN-LAST:event_ComboBoxValjAgentActionPerformed
 
     /**
      * @param args the command line arguments
@@ -215,11 +245,10 @@ public class GeAgentAdminstatus extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        try{
+        try {
             InfDB idb = new InfDB("mibdb", "3306", "mibdba", "mibkey");
-            GeAgentAdminstatus GeAgentAdminstatusFrame = new GeAgentAdminstatus(idb); 
-            
-        
+            GeAgentAdminstatus GeAgentAdminstatusFrame = new GeAgentAdminstatus(idb);
+
             GeAgentAdminstatusFrame.setSize(551, 301);
             GeAgentAdminstatusFrame.setVisible(true);
         } catch (InfException Fel) {
@@ -231,11 +260,11 @@ public class GeAgentAdminstatus extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> ComboBoxValjAgent;
-    private javax.swing.JComboBox<String> ComboBoxValjStatus;
     private javax.swing.JButton btnGodkann;
     private javax.swing.JButton btnTillbaka2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel lbValjStatus;
+    private javax.swing.JLabel lblAgentHarStatus;
     private javax.swing.JLabel lblAndraAdminStatus;
     private javax.swing.JLabel lblValjAgent;
     // End of variables declaration//GEN-END:variables

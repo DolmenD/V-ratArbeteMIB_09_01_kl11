@@ -277,38 +277,40 @@ public class AndraInfoAlien extends javax.swing.JFrame {
 
     private void btnAndraInfoAlienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAndraInfoAlienActionPerformed
         // TODO add your handling code here:
-        try {
-            String losenord = txtNyttLosenord.getText();
-            String telefon = txtTelefon.getText();
-            String Namn = txtNamn.getText();
-            String rasInfo = txtRasInfo.getText();
-            String Plats = (String) cbtnPlats.getSelectedItem();
-            String Ras = (String) cbtnRas.getSelectedItem();
+        if(Inmatningsvalidering.telefonValidering(txtTelefon) && Inmatningsvalidering.textValidering(txtNamn) && Inmatningsvalidering.textValidering(txtNyttLosenord)){
+            try {
+                String losenord = txtNyttLosenord.getText();
+                String telefon = txtTelefon.getText();
+                String Namn = txtNamn.getText();
+                String rasInfo = txtRasInfo.getText();
+                String Plats = (String) cbtnPlats.getSelectedItem();
+                String Ras = (String) cbtnRas.getSelectedItem();
 
-            String fragaPlatsID = "SELECT Plats_ID FROM plats WHERE Benamning = '" + Plats + "';";
-            String platsID = idb.fetchSingle(fragaPlatsID);
+                String fragaPlatsID = "SELECT Plats_ID FROM plats WHERE Benamning = '" + Plats + "';";
+                String platsID = idb.fetchSingle(fragaPlatsID);
 
-            String andraAlienFraga = "UPDATE ALIEN SET Losenord = '" + losenord + "', Telefon = '" + telefon + "', Namn = '" + Namn + "', Plats = '" + platsID + "' WHERE ALIEN_ID = '" + AlienID + "';";
-            idb.update(andraAlienFraga);
+                String andraAlienFraga = "UPDATE ALIEN SET Losenord = '" + losenord + "', Telefon = '" + telefon + "', Namn = '" + Namn + "', Plats = '" + platsID + "' WHERE ALIEN_ID = '" + AlienID + "';";
+                idb.update(andraAlienFraga);
 
-            if (!Ras.equals(currentRas)) {
-                lbRasInfo.setText("Rasen har ändrats!");
+                if (!Ras.equals(currentRas)) {
+                    lbRasInfo.setText("Rasen har ändrats!");
 
-                // Uppdatera currentRas till det nya värdet
-                currentRas = Ras;
+                    // Uppdatera currentRas till det nya värdet
+                    currentRas = Ras;
 
-                deleteFromPreviousRaceTable();
-                insertIntoNewRaceTable();
+                    deleteFromPreviousRaceTable();
+                    insertIntoNewRaceTable();
 
+                }
+
+              JOptionPane.showMessageDialog(null, "Alien registrerad!");
+
+
+            } catch (InfException ex) {
+                // Visa felmeddelande om något går fel med databasen
+                JOptionPane.showMessageDialog(null, "Något gick fel vid uppdateringen av Alien!");
+                System.out.println("Internt felmeddelande: " + ex.getMessage());
             }
-            
-          JOptionPane.showMessageDialog(null, "Alien registrerad!");
-
-
-        } catch (InfException ex) {
-            // Visa felmeddelande om något går fel med databasen
-            JOptionPane.showMessageDialog(null, "Något gick fel vid uppdateringen av Alien!");
-            System.out.println("Internt felmeddelande: " + ex.getMessage());
         }
 
     }//GEN-LAST:event_btnAndraInfoAlienActionPerformed

@@ -14,7 +14,7 @@ import javax.swing.JTextField;
  */
 
 //Denna klass är enligt kravspecifikationen fristående och syftar till att validera användarinmatningen.
-//Detta är om vi ska använda if(Inmatningsvalidering.vardeInmatat(jtxtAlien)
+//Detta är om vi ska använda if(Inmatningsvalidering.textValidering(jtxtAlien)
 //                                  try{
 // Annars kan vi göra enskilda valideringar för vardera klass, vi får bestämma det
 public class Inmatningsvalidering {
@@ -62,11 +62,14 @@ public class Inmatningsvalidering {
         //Kollar om den är tom
         if(textValidering(Varde)){
             //Kollar så att det endast är minustecken och siffror
-          if(text.matches("[0-9-]*")){
+            //med hjälp av regex
+            String regex1 = "\\d+-\\d+";
+          if(text.matches(regex1)){
               inmatat3 = true;
           }
           else{
-              JOptionPane.showMessageDialog(null, "Ett telefonnummer får endast innehålla siffror och -");
+              JOptionPane.showMessageDialog(null, "Ett telefonnummer får endast innehålla siffror och - Ex: 000-111");
+              Varde.requestFocus();
           }
         }
         return inmatat3;
@@ -76,7 +79,17 @@ public class Inmatningsvalidering {
         boolean inmatat4 = false;
         String text = Varde.getText();
         if(textValidering(Varde)){
-            
+            //Kollar ifall det är skrivet på åååå-mm-dd
+            String regex = "\\d{4}-\\d{2}-\\d{2}";
+            if(text.matches(regex)){
+                inmatat4 = true;
+                System.out.println("Såja");
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "Datumet är skrivet på fel format skriv åååå-mm-dd");
+                Varde.requestFocus();
+                System.out.println("Okej");
+            }
         }
         return inmatat4;
     }

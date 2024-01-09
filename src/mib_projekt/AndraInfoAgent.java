@@ -80,6 +80,7 @@ public class AndraInfoAgent extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         btnTillbaka = new javax.swing.JButton();
         lbRas = new javax.swing.JLabel();
+        jLAndrat = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -118,17 +119,23 @@ public class AndraInfoAgent extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(55, 55, 55)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lbRas, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbtnAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(29, 29, 29)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cbtnOmrade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtNamn, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(55, 55, 55)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lbRas, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cbtnAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(29, 29, 29)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cbtnOmrade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtNamn, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLAndrat, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(41, 41, 41)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -177,7 +184,9 @@ public class AndraInfoAgent extends javax.swing.JFrame {
                     .addComponent(cbtnOmrade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtTelefon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
-                .addComponent(btnAndraInfoAgent)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnAndraInfoAgent)
+                    .addComponent(jLAndrat, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(64, 64, 64))
         );
 
@@ -302,24 +311,27 @@ public class AndraInfoAgent extends javax.swing.JFrame {
     }//GEN-LAST:event_cbtnAdminActionPerformed
 
     private void btnAndraInfoAgentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAndraInfoAgentActionPerformed
-        try {
-            // TODO add your handling code here:
-            String losenord = txtNyttLosenord.getText();
-            String telefon = txtTelefon.getText();
-            String Namn = txtNamn.getText();
-            String adminstatus;
-
-            String admin = cbtnAdmin.getSelectedItem().toString();
-            if (admin.equals("Ja")) {
-                adminstatus = "J";
-            } else {
-                adminstatus = "N";
+        if(Inmatningsvalidering.telefonValidering(txtTelefon) && Inmatningsvalidering.textValidering(txtNamn) && Inmatningsvalidering.textValidering(txtNyttLosenord)){
+            try {
+                // Hämtar infon från dem olika textfälten
+                String losenord = txtNyttLosenord.getText();
+                String telefon = txtTelefon.getText();
+                String Namn = txtNamn.getText();
+                String adminstatus;
+                
+                String admin = cbtnAdmin.getSelectedItem().toString();
+                if (admin.equals("Ja")) {
+                    adminstatus = "J";
+                } else {
+                    adminstatus = "N";
+                }
+                //sql fråga som uppdaterar agenten
+                String andraAgentFraga = "UPDATE AGENT SET Losenord ='"+losenord+ "', Telefon ='"+telefon+"', Namn ='"+ Namn+"', Omrade = '" + omradeID + "', Administrator = '"+adminstatus+"' WHERE AGENT_ID = '" + AgentID + "';";
+                idb.update(andraAgentFraga);
+                jLAndrat.setText("Agentens info är ändrat");
+            } catch (InfException ex) {
+                Logger.getLogger(AndraInfoAgent.class.getName()).log(Level.SEVERE, null, ex);
             }
-
-            String andraAgentFraga = "UPDATE AGENT SET Losenord ='"+losenord+ "', Telefon ='"+telefon+"', Namn ='"+ Namn+"', Omrade = '" + omradeID + "', Administrator = '"+adminstatus+"' WHERE AGENT_ID = '" + AgentID + "';";
-            idb.update(andraAgentFraga);
-        } catch (InfException ex) {
-            Logger.getLogger(AndraInfoAgent.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnAndraInfoAgentActionPerformed
 
@@ -370,6 +382,7 @@ public class AndraInfoAgent extends javax.swing.JFrame {
     private javax.swing.JButton btnTillbaka;
     private javax.swing.JComboBox<String> cbtnAdmin;
     private javax.swing.JComboBox<String> cbtnOmrade;
+    private javax.swing.JLabel jLAndrat;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;

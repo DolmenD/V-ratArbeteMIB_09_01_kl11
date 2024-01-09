@@ -148,43 +148,45 @@ public class RegNyUtrustning extends javax.swing.JFrame {
     }//GEN-LAST:event_cbtnUtrustningActionPerformed
 
     private void btnRegisteraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisteraActionPerformed
-      try{
-          String namn = txtNamn.getText();
-          String typUtrustning = (String) cbtnUtrustning.getSelectedItem();
-          String infoUtrustning = txtUtrustningInfo.getText();
-          
-          String fragaUtrustningID = "SELECT COALESCE(MAX(Utrustnings_ID), 0) + 1 AS NextUtrustningsID FROM Utrustning";
-          String utrustningsIDResult = idb.fetchSingle(fragaUtrustningID);
-          int utrustningsID = (utrustningsIDResult != null) ? Integer.parseInt(utrustningsIDResult) : 1;
-          
-          String fragaRegistreraUtrustning = "INSERT INTO Utrustning (Utrustnings_ID, Benamning) VALUES "
-                                     + "('" + utrustningsID + "', '" + namn + "')";
-          idb.insert(fragaRegistreraUtrustning);
-          
-          if("Vapen".equals(typUtrustning)){
-              int infoVapen = Integer.parseInt(infoUtrustning);
-              String fragaVapen = "INSERT INTO Vapen (Utrustnings_ID, Kaliber) VALUES "
-                                     + "('" + utrustningsID + "', '" + infoVapen + "')";
-              idb.insert(fragaVapen);
-          } 
-          if("Kommunikation".equals(typUtrustning)){
-              String fragaKommuniktion = "INSERT INTO Kommunikation (Utrustnings_ID, Overforingsteknik) VALUES "
-                       + "('" + utrustningsID + "', '" + infoUtrustning + "')";
-              idb.insert(fragaKommuniktion);
-          } 
-          else{
-            String fragaTeknik = "INSERT INTO Teknik (Utrustnings_ID, Kraftkalla) VALUES "
-                       + "('" + utrustningsID + "', '" + infoUtrustning + "')";
-              idb.insert(fragaTeknik);
-          }
-          
-          
-           
-       }
-        catch (InfException ex) {
-            // Visa felmeddelande om något går fel med databasen
-            JOptionPane.showMessageDialog(null, "Något gick fel!");
-            System.out.println("Internt felmeddelande" + ex.getMessage());
+        if(Inmatningsvalidering.textValidering(txtNamn) && Inmatningsvalidering.textValidering(txtUtrustningInfo)){
+            try{
+              String namn = txtNamn.getText();
+              String typUtrustning = (String) cbtnUtrustning.getSelectedItem();
+              String infoUtrustning = txtUtrustningInfo.getText();
+
+              String fragaUtrustningID = "SELECT COALESCE(MAX(Utrustnings_ID), 0) + 1 AS NextUtrustningsID FROM Utrustning";
+              String utrustningsIDResult = idb.fetchSingle(fragaUtrustningID);
+              int utrustningsID = (utrustningsIDResult != null) ? Integer.parseInt(utrustningsIDResult) : 1;
+
+              String fragaRegistreraUtrustning = "INSERT INTO Utrustning (Utrustnings_ID, Benamning) VALUES "
+                                         + "('" + utrustningsID + "', '" + namn + "')";
+              idb.insert(fragaRegistreraUtrustning);
+
+              if("Vapen".equals(typUtrustning)){
+                  int infoVapen = Integer.parseInt(infoUtrustning);
+                  String fragaVapen = "INSERT INTO Vapen (Utrustnings_ID, Kaliber) VALUES "
+                                         + "('" + utrustningsID + "', '" + infoVapen + "')";
+                  idb.insert(fragaVapen);
+              } 
+              if("Kommunikation".equals(typUtrustning)){
+                  String fragaKommuniktion = "INSERT INTO Kommunikation (Utrustnings_ID, Overforingsteknik) VALUES "
+                           + "('" + utrustningsID + "', '" + infoUtrustning + "')";
+                  idb.insert(fragaKommuniktion);
+              } 
+              else{
+                String fragaTeknik = "INSERT INTO Teknik (Utrustnings_ID, Kraftkalla) VALUES "
+                           + "('" + utrustningsID + "', '" + infoUtrustning + "')";
+                  idb.insert(fragaTeknik);
+              }
+
+
+
+           }
+            catch (InfException ex) {
+                // Visa felmeddelande om något går fel med databasen
+                JOptionPane.showMessageDialog(null, "Något gick fel!");
+                System.out.println("Internt felmeddelande" + ex.getMessage());
+        }
     }//GEN-LAST:event_btnRegisteraActionPerformed
     }
     private void btnTillbaka2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTillbaka2ActionPerformed
