@@ -134,9 +134,10 @@ public class InLoggningAdmin extends javax.swing.JFrame {
                 //Kollar om användaren finns samt kollar om den är admin om allt är bra skickar den en vidare till efterInloggAdmin
                 String fraga = "SELECT EPOST, LOSENORD FROM AGENT WHERE EPOST = '" + epost + "' AND LOSENORD = '" + losenord + "'";
                 String fragaAdmin = "SELECT administrator FROM Agent WHERE epost = '" + epost + "';";
-                //Frågar databasen
+                //Ställer sql frågan till databasen
                 String svar = idb.fetchSingle(fraga);
                 String svarAdmin = idb.fetchSingle(fragaAdmin);
+                //Kollar om användaren har adminstatus
                 if ("N".equals(svarAdmin)){
                      JOptionPane.showMessageDialog(null, "Ingen Adminstatus!");
                 }

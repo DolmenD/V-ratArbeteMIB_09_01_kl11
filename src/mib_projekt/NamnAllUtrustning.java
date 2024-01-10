@@ -142,22 +142,21 @@ public class NamnAllUtrustning extends javax.swing.JFrame {
             String fragaUtrustningID = "SELECT Utrustnings_ID FROM Utrustning WHERE Benamning = '" + valtUtrustningNamn + "';";
             String utrustningID = idb.fetchSingle(fragaUtrustningID);
 
-            // Kontrollera om UtrustningID inte är null eller tom
             if (utrustningID != null && !utrustningID.isEmpty()) {
 
-                // Ta bort kopplingar i Vapen-tabellen
+                // Tar bort kopplingar i Vapen-tabellen
                 String fragaVapen = "DELETE FROM Vapen WHERE Utrustnings_ID = " + utrustningID + ";";
                 idb.delete(fragaVapen);
 
-                // Ta bort kopplingar i Teknik-tabellen
+                // Tar bort kopplingar i Teknik-tabellen
                 String fragaTeknik = "DELETE FROM Teknik WHERE Utrustnings_ID = " + utrustningID + ";";
                 idb.delete(fragaTeknik);
 
-                //Ta bort kopplingar i Kommunikation-tabellen
+                //Tar bort kopplingar i Kommunikation-tabellen
                 String fragaKommunikation = "DELETE FROM Kommunikation WHERE Utrustnings_ID = " + utrustningID + ";";
                 idb.delete(fragaKommunikation);
 
-                //Ta bort kopplingar i Innehar_Utrustning-tabellen
+                //Tar bort kopplingar i Innehar_Utrustning-tabellen
                 String fragaInnehar = "DELETE FROM Innehar_Utrustning WHERE Utrustnings_ID = " + utrustningID + ";";
                 idb.delete(fragaInnehar);
 
@@ -175,7 +174,7 @@ public class NamnAllUtrustning extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Ingen utrustning är vald.");
         }
     } catch (InfException ex) {
-        // Visa felmeddelande om något går fel med databasen
+        // Visar felmeddelande om något går fel med databasen
         JOptionPane.showMessageDialog(null, "Något gick fel vid radering av utrustning.");
         System.out.println("Internt felmeddelande: " + ex.getMessage());
     }

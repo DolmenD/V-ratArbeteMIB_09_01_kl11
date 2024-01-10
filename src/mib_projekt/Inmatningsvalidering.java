@@ -79,7 +79,8 @@ public class Inmatningsvalidering {
         boolean inmatat4 = false;
         String text = Varde.getText();
         if(textValidering(Varde)){
-            //Kollar ifall det är skrivet på åååå-mm-dd
+            //Kollar ifall det är skrivet på fyra siffror sen -
+            //sedan två siffror och - och tillsist två siffror
             String regex = "\\d{4}-\\d{2}-\\d{2}";
             if(text.matches(regex)){
                 inmatat4 = true;

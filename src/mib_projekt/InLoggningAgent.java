@@ -125,7 +125,7 @@ public class InLoggningAgent extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnLoggaInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoggaInActionPerformed
-
+        //kallar på vallideringsklassen och kollar om fälten är ifyllda rätt
         if ((Inmatningsvalidering.emailValidering(txtEpost) && Inmatningsvalidering.textValidering(lsnLosenordAgent))!=true) {
         
         } else {
