@@ -81,6 +81,12 @@ public class RegNyAlien extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        cbtnPlats.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbtnPlatsActionPerformed(evt);
+            }
+        });
+
         lbPlats.setText("Plats:");
 
         btnReg.setText("Registera");
@@ -291,6 +297,10 @@ public class RegNyAlien extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnTillbakaActionPerformed
 
+    private void cbtnPlatsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbtnPlatsActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbtnPlatsActionPerformed
+
     private void fyllPlatsCBox() {
         try {
             // SQL-fråga för att hämta Plats_ID och Benamning från plats-tabellen
@@ -298,9 +308,9 @@ public class RegNyAlien extends javax.swing.JFrame {
             // Utför SQL-frågan och få resultatet
             var resultat = idb.fetchRows(fraga);
 
-            // Iterera över varje rad i resultatet
+            // Itererar över varje rad i resultatet
             for (HashMap<String, String> rad : resultat) {
-                // Hämta Plats_ID och Benamning från raden
+                // Hämtar Plats_ID och namn från raden
                 String platsIdStr = rad.get("Plats_ID");
                 String platsNamn = rad.get("Benamning");
 

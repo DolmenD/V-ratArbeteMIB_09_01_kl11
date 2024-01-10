@@ -581,7 +581,7 @@ public class EfterInloggAdmin extends javax.swing.JFrame {
 
     private void btnSokaOmrådesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSokaOmrådesActionPerformed
         // TODO add your handling code here:
-        SokaFramOmradesChef nytt = new SokaFramOmradesChef();
+        SokaFramOmradesChef nytt = new SokaFramOmradesChef(Tidigare);
         EfterInloggAdmin.this.setVisible(false);
         nytt.setVisible(true);
     }//GEN-LAST:event_btnSokaOmrådesActionPerformed

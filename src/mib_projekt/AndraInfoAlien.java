@@ -20,6 +20,7 @@ public class AndraInfoAlien extends javax.swing.JFrame {
     private String ursprungligRas;
     private String currentRas;
     private String columnName;
+
     String Tidigare;
 
     /**
@@ -33,7 +34,8 @@ public class AndraInfoAlien extends javax.swing.JFrame {
             fyllPlatsCBox();
             setTextFields();
             setNuvarandeRas();
-            
+            AgentNamnScroll2();
+
             ursprungligRas = currentRas;
         } catch (InfException ettUndantag) {
             // Visa felmeddelande om det uppstår problem med databasanslutningen
@@ -52,7 +54,8 @@ public class AndraInfoAlien extends javax.swing.JFrame {
             fyllPlatsCBox();
             setTextFields();
             setNuvarandeRas();
-            
+            AgentNamnScroll2();
+
             ursprungligRas = currentRas;
         } catch (InfException ettUndantag) {
             // Visa felmeddelande om det uppstår problem med databasanslutningen
@@ -84,6 +87,8 @@ public class AndraInfoAlien extends javax.swing.JFrame {
         lbRasInfo = new javax.swing.JLabel();
         txtRasInfo = new javax.swing.JTextField();
         btnTillbaka = new javax.swing.JButton();
+        cbtnAgentNamn1 = new javax.swing.JComboBox<>();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -120,41 +125,51 @@ public class AndraInfoAlien extends javax.swing.JFrame {
             }
         });
 
+        jLabel2.setText("Vänligen välj ny ansvarig agent:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(36, 36, 36)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(lbRas, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(cbtnRas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(lbRasInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(txtRasInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(20, 20, 20)))
-                .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cbtnPlats, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtNamn, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtNyttLosenord, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(81, 81, 81))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(btnAndraInfoAlien, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(54, 54, 54))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtTelefon, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap())))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(lbRas, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(cbtnRas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(lbRasInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(txtRasInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(20, 20, 20)))
+                                .addGap(29, 29, 29)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtNamn, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(cbtnPlats, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(cbtnAgentNamn1, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtNyttLosenord, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(81, 81, 81))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(btnAndraInfoAlien, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(54, 54, 54))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtTelefon, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addContainerGap())))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnTillbaka)
@@ -162,7 +177,7 @@ public class AndraInfoAlien extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
@@ -187,23 +202,31 @@ public class AndraInfoAlien extends javax.swing.JFrame {
                             .addComponent(jLabel7)
                             .addComponent(jLabel5))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(cbtnPlats, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtTelefon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
-                        .addComponent(btnAndraInfoAlien)
-                        .addGap(64, 64, 64))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtTelefon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cbtnPlats, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(26, 26, 26)
                         .addComponent(lbRasInfo)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtRasInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtRasInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addComponent(jLabel2)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
+                        .addComponent(btnAndraInfoAlien)
+                        .addGap(64, 64, 64))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cbtnAgentNamn1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
     //Fyller på med nuvarande rasen och den rasen alien är kommer först det är därför if satserna är där
+
     private void setNuvarandeRas() {
         try {
             String fraga1 = "SELECT Alien_ID FROM WORM WHERE ALIEN_ID = '" + AlienID + "'";
@@ -252,6 +275,7 @@ public class AndraInfoAlien extends javax.swing.JFrame {
             System.out.println("Internt felmeddelande" + ex.getMessage());
         }
     }
+
     //Fyller rutorna med information om alien
     private void setTextFields() {
 
@@ -274,10 +298,34 @@ public class AndraInfoAlien extends javax.swing.JFrame {
         }
 
     }
+    //En till cb denna för att byta ansvarig agent
+    private void AgentNamnScroll2() {
+        try {
+            String fraga = "SELECT Agent_ID, Namn FROM agent;";
+            var resultat = idb.fetchRows(fraga);
+
+            String ansvarigAgentFraga = "SELECT Ansvarig_Agent FROM Alien WHERE Alien_ID = '" + AlienID + "'";
+            String nuvarandeAnsvarigAgentID = idb.fetchSingle(ansvarigAgentFraga);
+
+            for (HashMap<String, String> rad : resultat) {
+                String agentIdStr = rad.get("Agent_ID");
+                String agentNamn = rad.get("Namn");
+
+                // Lägger till agentens namn i dropdown-menyn
+                cbtnAgentNamn1.addItem(agentNamn);
+                if (agentIdStr != null && agentIdStr.equals(nuvarandeAnsvarigAgentID)) {
+                    cbtnAgentNamn1.setSelectedItem(agentNamn);
+                }
+            }
+        } catch (InfException ex) {
+            JOptionPane.showMessageDialog(null, "Något gick fel!");
+            System.out.println("Internt felmeddelande" + ex.getMessage());
+        }
+    }
 
     private void btnAndraInfoAlienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAndraInfoAlienActionPerformed
         // Uppdaterar informationen om alien när man klickar på knappen
-        if(Inmatningsvalidering.telefonValidering(txtTelefon) && Inmatningsvalidering.textValidering(txtNamn) && Inmatningsvalidering.textValidering(txtNyttLosenord)){
+        if (Inmatningsvalidering.telefonValidering(txtTelefon) && Inmatningsvalidering.textValidering(txtNamn) && Inmatningsvalidering.textValidering(txtNyttLosenord)) {
             try {
                 String losenord = txtNyttLosenord.getText();
                 String telefon = txtTelefon.getText();
@@ -285,12 +333,20 @@ public class AndraInfoAlien extends javax.swing.JFrame {
                 String rasInfo = txtRasInfo.getText();
                 String Plats = (String) cbtnPlats.getSelectedItem();
                 String Ras = (String) cbtnRas.getSelectedItem();
+                String valtAgentNamn2 = (String) cbtnAgentNamn1.getSelectedItem();
 
                 String fragaPlatsID = "SELECT Plats_ID FROM plats WHERE Benamning = '" + Plats + "';";
                 String platsID = idb.fetchSingle(fragaPlatsID);
 
                 String andraAlienFraga = "UPDATE ALIEN SET Losenord = '" + losenord + "', Telefon = '" + telefon + "', Namn = '" + Namn + "', Plats = '" + platsID + "' WHERE ALIEN_ID = '" + AlienID + "';";
                 idb.update(andraAlienFraga);
+
+                String fraga1 = "Select ansvarig_agent from Alien where Alien_ID = " + AlienID + "";
+                String fraga2 = "SELECT Agent_ID FROM Agent WHERE Namn = '" + valtAgentNamn2 + "'";
+
+                var agentID1 = idb.fetchSingle(fraga1);
+                var agentID2 = idb.fetchSingle(fraga2);
+                idb.update("UPDATE Alien SET Ansvarig_Agent = " + agentID2 + " WHERE Ansvarig_Agent = " + agentID1 + " AND Alien_ID = " + AlienID);
 
                 if (!Ras.equals(currentRas)) {
                     lbRasInfo.setText("Rasen har ändrats!");
@@ -303,11 +359,10 @@ public class AndraInfoAlien extends javax.swing.JFrame {
 
                 }
 
-              JOptionPane.showMessageDialog(null, "Alien registrerad!");
-
+                JOptionPane.showMessageDialog(null, "Alien Ändrad!");
 
             } catch (InfException ex) {
-                // Visa felmeddelande om något går fel med databasen
+                // Visar felmeddelande om något går fel med databasen
                 JOptionPane.showMessageDialog(null, "Något gick fel vid uppdateringen av Alien!");
                 System.out.println("Internt felmeddelande: " + ex.getMessage());
             }
@@ -340,19 +395,19 @@ public class AndraInfoAlien extends javax.swing.JFrame {
 
         String rasInfo = txtRasInfo.getText();
 
-        // Byter ras på alien till den nya rasen man valde
+        // Implementera logiken för att lägga till alien i den nya rasen
         if ("Squid".equals(currentRas)) {
             // Lägg till i den nya Squid-tabellen
             String insertIntoSquid = "INSERT INTO SQUID (ALIEN_ID, ANTAL_ARMAR) VALUES "
                     + "('" + AlienID + "', '" + rasInfo + "');";
             idb.insert(insertIntoSquid);
         } else if ("Worm".equals(currentRas)) {
-            // Lägg till i den nya Worm-tabellen
+            // Lägger till i den nya Worm-tabellen
             String insertIntoWorm = "INSERT INTO WORM (ALIEN_ID, LANGD) VALUES "
                     + "('" + AlienID + "', '" + rasInfo + "');";
             idb.insert(insertIntoWorm);
         } else if ("Boglodite".equals(currentRas)) {
-            // Lägg till i den nya Boglodite-tabellen
+            // Lägger till i den nya Boglodite-tabellen
             String insertIntoBogdolite = "INSERT INTO BOGLDODITE (ALIEN_ID, ANTAL_BOOGIES) VALUES "
                     + "('" + AlienID + "', '" + rasInfo + "');";
             idb.insert(insertIntoBogdolite);
@@ -361,7 +416,7 @@ public class AndraInfoAlien extends javax.swing.JFrame {
 
 
     private void cbtnRasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbtnRasActionPerformed
-        //Byter ras specifik information 
+        // TODO add your handling code here:
         String ras = (String) cbtnRas.getSelectedItem();
 
         if ("Squid".equals(ras)) {
@@ -378,18 +433,17 @@ public class AndraInfoAlien extends javax.swing.JFrame {
 
     private void btnTillbakaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTillbakaActionPerformed
         // TODO add your handling code here:
-        if(Tidigare.equals("ADMIN")){
+        if (Tidigare.equals("ADMIN")) {
             NamnAllaAlien nytt = new NamnAllaAlien(Tidigare);
             AndraInfoAlien.this.setVisible(false);
             nytt.setVisible(true);
-        }
-        else{
+        } else {
             EfterInlogg nytt = new EfterInlogg();
             AndraInfoAlien.this.setVisible(false);
             nytt.setVisible(true);
         }
     }//GEN-LAST:event_btnTillbakaActionPerformed
-    //hämtar den nuvarande platsen som alienen är på just nu
+
     private String hamtaNuvarandePlats() {
         try {
             String platsFraga = "SELECT Benamning FROM plats WHERE Plats_ID = (SELECT Plats FROM ALIEN WHERE ALIEN_ID = '" + AlienID + "')";
@@ -412,17 +466,22 @@ public class AndraInfoAlien extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    //fyller combo boxen med namn
     private void fyllPlatsCBox() {
         try {
+            // Hämta nuvarande plats för alien
             String nuvarandePlats = hamtaNuvarandePlats();
 
+            // SQL-fråga för att hämta Plats_ID och Benamning från plats-tabellen
             String fraga = "SELECT Plats_ID, Benamning FROM plats;";
+            // Utför SQL-frågan och få resultatet
             var resultat = idb.fetchRows(fraga);
 
+            // Lägg till nuvarande plats för den valda alien i ComboBox
             cbtnPlats.addItem(nuvarandePlats);
 
+            // Iterera över varje rad i resultatet
             for (HashMap<String, String> rad : resultat) {
+                // Hämta Plats_ID och Benamning från raden
                 String platsIdStr = rad.get("Plats_ID");
                 String platsNamn = rad.get("Benamning");
 
@@ -474,8 +533,10 @@ public class AndraInfoAlien extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAndraInfoAlien;
     private javax.swing.JButton btnTillbaka;
+    private javax.swing.JComboBox<String> cbtnAgentNamn1;
     private javax.swing.JComboBox<String> cbtnPlats;
     private javax.swing.JComboBox<String> cbtnRas;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
