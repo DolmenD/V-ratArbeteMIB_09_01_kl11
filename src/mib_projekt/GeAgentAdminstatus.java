@@ -134,7 +134,7 @@ public class GeAgentAdminstatus extends javax.swing.JFrame {
             String fraga = "SELECT Agent_ID, Namn FROM agent;";
             var resultat = idb.fetchRows(fraga);
             for (HashMap<String, String> rad : resultat) {
-                // Hämta Plats_ID och Benamning från raden
+                // Hämtar AgentId och agentens namn från databasen
                 String AgentIdStr = rad.get("Agent_ID");
                 String AgentNamn = rad.get("Namn");
 
@@ -144,7 +144,7 @@ public class GeAgentAdminstatus extends javax.swing.JFrame {
                 }
             }
         } catch (InfException ex) {
-            // Visa felmeddelande om något går fel med databasen
+            // Visar felmeddelande om något går fel med databasen
             JOptionPane.showMessageDialog(null, "Något gick fel!");
             System.out.println("Internt felmeddelande" + ex.getMessage());
         }
