@@ -222,11 +222,11 @@ public class RegNyAgent extends javax.swing.JFrame {
             var resultat = idb.fetchRows(fraga);
 
             for (HashMap<String, String> rad : resultat) {
-                // Hämtar Omrades_ID och Benamning från raden
+                // Hämtar Omrades_ID och namn från databasen
                 String OmradeIdStr = rad.get("Omrades_ID");
                 String OmradeNamn = rad.get("Benamning");
 
-                // Kontrollerar så att Plats_ID inte är null
+                // Kontrollerar så att OmradesID inte är null
                 if (OmradeIdStr != null) {
                     // Lägger till Benamning i dropdown-menyn
                     cbtnOmrade.addItem(OmradeNamn);

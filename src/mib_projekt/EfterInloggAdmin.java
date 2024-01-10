@@ -426,7 +426,7 @@ public class EfterInloggAdmin extends javax.swing.JFrame {
             String nyttLosenord = txtNyttLosenord.getText();
 
             // Kontrollerar om det nya lösenordet är 6 tecken eller kortare
-            if (nyttLosenord.length() <= 6) {
+            if (nyttLosenord.length() <= 6 && Inmatningsvalidering.textValidering(txtNyttLosenord)) {
                 String fraga = "UPDATE agent SET losenord ='" + nyttLosenord + "' WHERE epost = '" + epost1 + "'";
 
                 // gör uppdateringen i databasen
